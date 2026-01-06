@@ -14,12 +14,12 @@ class Articles extends BaseController
         return view('admin/articles/index', $data);
     }
 
-    public function new()
+    public function create()
     {
         return view('admin/articles/form', ['action' => 'create']);
     }
 
-    public function create()
+    public function store()
     {
         $model = new ArticleModel();
         $data = $this->request->getPost();

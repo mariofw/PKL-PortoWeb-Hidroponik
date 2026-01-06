@@ -22,6 +22,15 @@
 
         .bg-hydro-dark { background-color: var(--hydro-dark) !important; }
         .text-hydro { color: var(--hydro-main); }
+
+        .navbar.bg-white .nav-link {
+            color: var(--hydro-dark) !important;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .navbar.bg-white .nav-link:hover {
+            color: var(--hydro-accent) !important;
+        }
         
         .article-header {
             background-color: var(--hydro-light);
@@ -50,9 +59,9 @@
 <body>
     
     <!-- Navbar (Same as Home) -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-hydro-dark fixed-top shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="/">
+            <a class="navbar-brand fw-bold text-hydro" href="/">
                 <?php if(isset($settings['site_logo'])): ?>
                     <img src="/<?= $settings['site_logo'] ?>" height="35" class="d-inline-block align-top me-2" alt="">
                 <?php endif; ?>
@@ -103,51 +112,51 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-hydro-dark text-white py-5 mt-5">
+    <footer class="bg-hydro-dark text-white py-4 mt-5">
         <div class="container">
             <div class="row">
-                <div class="col-md-5 mb-4">
-                    <h4 class="mb-3 fw-bold"><?= $settings['site_title'] ?? 'Hidroganik Alfa' ?></h4>
-                    <p class="text-white-50">Solusi hidroponik terbaik untuk kebutuhan pertanian modern Anda. Menyediakan sayuran segar, instalasi, dan pelatihan.</p>
+                <div class="col-md-5 mb-3">
+                    <h4 class="mb-2 fw-bold"><?= $settings['site_title'] ?? 'Hidroganik Alfa' ?></h4>
+                    <p class="text-white-50 small">Solusi hidroponik terbaik untuk kebutuhan pertanian modern Anda. Menyediakan sayuran segar, instalasi, dan pelatihan.</p>
                     
-                    <div class="mt-4">
-                        <a href="<?= $settings['social_fb'] ?? '#' ?>" target="_blank" class="text-white me-3 fs-4"><i class="fab fa-facebook"></i></a>
-                        <a href="<?= $settings['social_ig'] ?? '#' ?>" target="_blank" class="text-white me-3 fs-4"><i class="fab fa-instagram"></i></a>
-                        <a href="<?= $settings['social_yt'] ?? '#' ?>" target="_blank" class="text-white me-3 fs-4"><i class="fab fa-youtube"></i></a>
-                        <a href="<?= $settings['social_wa'] ?? '#' ?>" target="_blank" class="text-white fs-4"><i class="fab fa-whatsapp"></i></a>
+                    <div class="mt-2">
+                        <a href="<?= $settings['social_fb'] ?? '#' ?>" target="_blank" class="text-white me-3 fs-5"><i class="fab fa-facebook"></i></a>
+                        <a href="<?= $settings['social_ig'] ?? '#' ?>" target="_blank" class="text-white me-3 fs-5"><i class="fab fa-instagram"></i></a>
+                        <a href="<?= $settings['social_yt'] ?? '#' ?>" target="_blank" class="text-white me-3 fs-5"><i class="fab fa-youtube"></i></a>
+                        <a href="<?= $settings['social_wa'] ?? '#' ?>" target="_blank" class="text-white fs-5"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
                 
                 <div class="col-md-2"></div>
 
-                <div class="col-md-5 mb-4">
-                    <h5 class="mb-4 text-white border-bottom border-success d-inline-block pb-2">Kontak Kami</h5>
-                    <ul class="list-unstyled text-white-50">
-                        <li class="mb-3 d-flex">
-                            <i class="fas fa-map-marker-alt mt-1 me-3 text-success"></i>
+                <div class="col-md-5 mb-3">
+                    <h5 class="mb-3 text-white border-bottom border-success d-inline-block pb-1">Kontak Kami</h5>
+                    <ul class="list-unstyled text-white-50 small">
+                        <li class="mb-1 d-flex">
+                            <i class="fas fa-map-marker-alt mt-1 me-2 text-success"></i>
                             <span><?= nl2br($settings['contact_address'] ?? 'Alamat belum diatur') ?></span>
                         </li>
-                        <li class="mb-3">
-                            <i class="fab fa-whatsapp me-3 text-success"></i>
+                        <li class="mb-1">
+                            <i class="fab fa-whatsapp me-2 text-success"></i>
                             <?= $settings['contact_phone'] ?? '-' ?>
                         </li>
-                        <li class="mb-3">
-                            <i class="fas fa-envelope me-3 text-success"></i>
+                        <li class="mb-1">
+                            <i class="fas fa-envelope me-2 text-success"></i>
                             <?= $settings['contact_email'] ?? '-' ?>
                         </li>
-                        <li class="mb-3">
-                            <i class="fab fa-instagram me-3 text-success"></i>
+                        <li class="mb-1">
+                            <i class="fab fa-instagram me-2 text-success"></i>
                             <?= $settings['contact_ig_handle'] ?? '-' ?>
                         </li>
-                        <li class="mb-3">
-                            <i class="fas fa-clock me-3 text-success"></i>
+                        <li class="mb-1">
+                            <i class="fas fa-clock me-2 text-success"></i>
                             <?= $settings['contact_hours'] ?? '-' ?>
                         </li>
                     </ul>
                 </div>
             </div>
-            <hr class="border-secondary mt-4">
-            <div class="text-center pt-3 text-white-50 small">
+            <hr class="border-secondary mt-3 mb-3">
+            <div class="text-center text-white-50 small">
                 <p class="mb-0">&copy; <?= date('Y') ?> <?= $settings['site_title'] ?? 'Hidroganik Alfa' ?>. All rights reserved.</p>
             </div>
         </div>

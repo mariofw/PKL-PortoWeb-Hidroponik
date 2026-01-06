@@ -23,6 +23,15 @@
         .bg-hydro-dark {
             background-color: var(--hydro-dark) !important;
         }
+
+        .navbar.bg-white .nav-link {
+            color: var(--hydro-dark) !important;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .navbar.bg-white .nav-link:hover {
+            color: var(--hydro-accent) !important;
+        }
         
         /* Section Background Override */
         .bg-hydro-light {
@@ -98,14 +107,158 @@
             background: var(--hydro-accent);
             margin: 10px auto 0;
         }
+
+        /* Horizontal Scroll Services */
+        .service-scroll-container {
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 20px;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;  /* IE 10+ */
+        }
+        .service-scroll-container::-webkit-scrollbar {
+            display: none; /* Chrome/Safari/Webkit */
+        }
+        
+        /* Scroll Buttons */
+        .scroll-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            border: 1px solid var(--hydro-main);
+            color: var(--hydro-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+        .scroll-btn:hover {
+            background-color: var(--hydro-main);
+            color: white;
+        }
+        .scroll-btn.left { left: -15px; }
+        .scroll-btn.right { right: -15px; }
+        
+        @media (max-width: 768px) {
+            .scroll-btn { display: none; } /* Hide buttons on mobile, touch is better */
+        }
+
+        /* Article Hover Effect */
+        .article-card {
+            position: relative;
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s;
+        }
+        .article-card:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .article-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+        }
+        .article-card:hover .article-img {
+            transform: scale(1.1);
+        }
+        .article-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(27, 94, 32, 0.8), transparent);
+            color: white;
+            transform: translateY(65%); /* Only show Title initially */
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        .article-card:hover .article-overlay {
+            transform: translateY(0);
+            background: linear-gradient(to top, rgba(27, 94, 32, 0.95), rgba(27, 94, 32, 0.8));
+            justify-content: center;
+        }
+        .article-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+        }
+        .article-hidden-content {
+            opacity: 0;
+            transition: opacity 0.3s ease 0.1s;
+            height: 0;
+            overflow: hidden;
+        }
+        .article-card:hover .article-hidden-content {
+            opacity: 1;
+            height: auto;
+            margin-top: 15px;
+        }
+
+        /* Services Redesign */
+        .service-card {
+            position: relative;
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background-color: #fff;
+        }
+        .service-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .service-card:hover .service-img {
+            transform: scale(1.1);
+        }
+        .service-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(27, 94, 32, 0.85); /* Dark Green Overlay */
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            text-align: center;
+        }
+        .service-card:hover .service-overlay {
+            opacity: 1;
+        }
+        .service-desc {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
     
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-hydro-dark fixed-top shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">
+            <a class="navbar-brand fw-bold text-hydro" href="#">
                 <?php if(isset($settings['site_logo'])): ?>
                     <img src="/<?= $settings['site_logo'] ?>" height="35" class="d-inline-block align-top me-2" alt="">
                 <?php endif; ?>
@@ -121,9 +274,9 @@
                     <li class="nav-item"><a class="nav-link" href="#services">Layanan</a></li>
                     <li class="nav-item"><a class="nav-link" href="#articles">Artikel</a></li>
                     <?php if(session()->get('is_logged_in')): ?>
-                        <li class="nav-item"><a class="btn btn-light text-success ms-2 fw-bold" href="/admin">Dashboard</a></li>
+                        <li class="nav-item"><a class="btn btn-success ms-2 fw-bold text-white" href="/admin">Dashboard</a></li>
                     <?php else: ?>
-                        <li class="nav-item"><a class="btn btn-outline-light ms-2" href="/login">Login</a></li>
+                        <li class="nav-item"><a class="btn btn-outline-success ms-2" href="/login">Login</a></li>
                     <?php endif; ?>
                 </ul>
             </div>
@@ -191,24 +344,98 @@
         </div>
     </section>
 
+    <!-- Partners Section -->
+    <section id="partners" class="bg-white">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Partner Kami</h2>
+                <p class="text-muted mb-5">Bekerja sama dengan berbagai instansi dan komunitas.</p>
+            </div>
+            
+            <div class="row justify-content-center align-items-center">
+                <?php if(!empty($partners)): ?>
+                    <?php foreach($partners as $partner): ?>
+                    <div class="col-6 col-md-3 mb-4">
+                        <div class="partner-item">
+                            <img src="/<?= $partner['logo_path'] ?>" class="img-fluid partner-logo" alt="<?= $partner['name'] ?>">
+                            <span class="partner-name"><?= $partner['name'] ?></span>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="col-12 text-center text-muted">Belum ada partner yang ditambahkan.</div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .partner-item {
+            position: relative;
+            text-align: center;
+            padding: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .partner-logo {
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: all 0.4s ease;
+            max-height: 100px;
+            width: auto;
+        }
+        .partner-item:hover .partner-logo {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        .partner-name {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: var(--hydro-main);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .partner-item:hover .partner-name {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+
     <!-- Services -->
-    <section id="services" class="bg-white">
+    <section id="services" class="bg-hydro-light">
         <div class="container">
             <div class="text-center">
                 <h2 class="section-title">Layanan Kami</h2>
             </div>
-            <div class="row">
-                <?php foreach($services as $service): ?>
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 text-center p-4 shadow border-0 hover-shadow bg-hydro-light">
-                        <?php if($service['icon_image']): ?>
-                            <img src="/<?= $service['icon_image'] ?>" class="mx-auto mb-3" height="80" style="object-fit: contain;">
-                        <?php endif; ?>
-                        <h4 class="text-hydro fw-bold"><?= $service['title'] ?></h4>
-                        <p class="text-muted"><?= $service['description'] ?></p>
+            <!-- Horizontal Scroll Container -->
+            <div class="position-relative px-2">
+                <button class="scroll-btn left" onclick="scrollServices('left')"><i class="fas fa-chevron-left"></i></button>
+                
+                <div class="service-scroll-container d-flex pb-4" id="serviceContainer">
+                    <?php foreach($services as $service): ?>
+                    <!-- col-10 (mobile) and col-md-4 (desktop) with flex-shrink-0 to prevent wrapping -->
+                    <div class="col-10 col-md-4 flex-shrink-0 me-4">
+                        <div class="service-card mb-3">
+                            <?php if($service['icon_image']): ?>
+                                <img src="/<?= $service['icon_image'] ?>" class="service-img" alt="<?= $service['title'] ?>">
+                            <?php else: ?>
+                                <div class="w-100 h-100 bg-light d-flex align-items-center justify-content-center text-muted">No Image</div>
+                            <?php endif; ?>
+                            
+                            <div class="service-overlay">
+                                <p class="service-desc mb-0"><?= $service['description'] ?></p>
+                            </div>
+                        </div>
+                        <h4 class="text-hydro fw-bold text-center"><?= $service['title'] ?></h4>
                     </div>
+                    <?php endforeach; ?>
                 </div>
-                <?php endforeach; ?>
+
+                <button class="scroll-btn right" onclick="scrollServices('right')"><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
     </section>
@@ -222,21 +449,27 @@
             <div class="row">
                 <?php foreach($articles as $article): ?>
                 <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow border-0 overflow-hidden">
+                    <div class="article-card">
                         <?php if($article['image_path']): ?>
-                            <img src="/<?= $article['image_path'] ?>" class="card-img-top" style="height: 220px; object-fit: cover;">
+                            <img src="/<?= $article['image_path'] ?>" class="article-img">
                         <?php endif; ?>
-                        <div class="card-body">
-                            <h5 class="card-title fw-bold text-dark"><?= $article['title'] ?></h5>
-                            <p class="text-success small mb-2"><i class="fas fa-user me-1"></i> <?= $article['author'] ?> &nbsp;|&nbsp; <i class="fas fa-calendar me-1"></i> <?= date('d M Y', strtotime($article['created_at'])) ?></p>
+                        
+                        <div class="article-overlay">
+                            <h5 class="article-title"><?= $article['title'] ?></h5>
                             
-                            <?php if(isset($article['link_type']) && $article['link_type'] === 'external'): ?>
-                                <p class="card-text text-secondary">Baca berita lengkap di situs sumber...</p>
-                                <a href="<?= $article['external_url'] ?>" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill px-4">Buka Berita <i class="fas fa-external-link-alt ms-1"></i></a>
-                            <?php else: ?>
-                                <p class="card-text text-secondary"><?= substr($article['content'], 0, 100) ?>...</p>
-                                <a href="/article/<?= $article['slug'] ?>" class="btn btn-outline-primary btn-sm rounded-pill px-4">Baca Selengkapnya</a>
-                            <?php endif; ?>
+                            <div class="article-hidden-content">
+                                <p class="small mb-3 text-warning">
+                                    <i class="fas fa-user me-1"></i> <?= $article['author'] ?> &nbsp;|&nbsp; 
+                                    <i class="fas fa-calendar me-1"></i> <?= date('d M Y', strtotime($article['created_at'])) ?>
+                                </p>
+                                <p class="small text-light mb-4"><?= substr(strip_tags($article['content']), 0, 100) ?>...</p>
+                                
+                                <?php if(isset($article['link_type']) && $article['link_type'] === 'external'): ?>
+                                    <a href="<?= $article['external_url'] ?>" target="_blank" class="btn btn-outline-light btn-sm rounded-pill px-4">Buka Berita <i class="fas fa-external-link-alt ms-1"></i></a>
+                                <?php else: ?>
+                                    <a href="/article/<?= $article['slug'] ?>" class="btn btn-outline-light btn-sm rounded-pill px-4">Baca Selengkapnya</a>
+                                <?php endif; ?>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -255,101 +488,65 @@
 
     <section id="location" class="position-relative p-0">
         <!-- Google Maps Embed -->
-        <div style="width: 100%; height: 500px; overflow: hidden;">
+        <div style="width: 100%; height: 500px;">
             <iframe 
-                src="https://maps.google.com/maps?q=Hidroganik+Alfa&t=&z=17&ie=UTF8&iwloc=&output=embed" 
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3983.062409999398!2d114.5989818!3d-3.3347579!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2de421bf7aef995f%3A0x594092a02701e3dd!2sHidroganik%20Alfa!5e0!3m2!1sid!2sid!4v1767675115801!5m2!1sid!2sid" 
                 width="100%" 
-                height="600" 
-                style="border:0; margin-top: -50px;" 
+                height="100%" 
+                style="border:0;" 
                 allowfullscreen="" 
-                loading="lazy">
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
             </iframe>
-        </div>
-
-        <!-- Floating Review Card (Desktop) -->
-        <div class="card position-absolute top-0 start-0 m-4 shadow border-0 d-none d-md-block" style="width: 350px; z-index: 1000; background: rgba(255, 255, 255, 0.95);">
-            <div class="card-body p-4">
-                <h5 class="fw-bold text-hydro mb-1">Hidroganik Alfa</h5>
-                <p class="small text-muted mb-2">Pertanian Hidroponik</p>
-                
-                <div class="d-flex align-items-center mb-3">
-                    <span class="text-warning me-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
-                    <span class="fw-bold">5.0</span>
-                    <span class="text-muted ms-1 small">(Ulasan Google)</span>
-                </div>
-
-                <p class="card-text small text-secondary mb-3">
-                    <i class="fas fa-quote-left text-success me-2"></i>
-                    Tempat terbaik untuk belajar dan membeli sayuran hidroponik segar. Pelayanan sangat ramah dan edukatif.
-                </p>
-
-                <div class="d-grid gap-2">
-                    <a href="https://www.google.com/maps/place/Hidroganik+Alfa/@-3.3347579,114.6015621,17z" target="_blank" class="btn btn-outline-success btn-sm">
-                        <i class="fas fa-map-marked-alt me-1"></i> Lihat di Google Maps
-                    </a>
-                    <a href="https://www.google.com/maps/place/Hidroganik+Alfa/@-3.3347579,114.6015621,17z" target="_blank" class="btn btn-link text-decoration-none btn-sm text-secondary">
-                        Lihat semua ulasan
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile Info Block (Visible only on Mobile) -->
-        <div class="bg-white p-4 d-block d-md-none text-center border-top">
-            <h5 class="fw-bold text-hydro">Hidroganik Alfa</h5>
-            <div class="text-warning mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> (5.0)</div>
-            <a href="https://www.google.com/maps/place/Hidroganik+Alfa/@-3.3347579,114.6015621,17z" target="_blank" class="btn btn-success w-100">
-                Buka di Google Maps
-            </a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-hydro-dark text-white py-5">
+    <footer class="bg-hydro-dark text-white py-4">
         <div class="container">
             <div class="row">
-                <div class="col-md-5 mb-4">
-                    <h4 class="mb-3 fw-bold"><?= $settings['site_title'] ?? 'Hidroganik Alfa' ?></h4>
-                    <p class="text-white-50">Solusi hidroponik terbaik untuk kebutuhan pertanian modern Anda. Menyediakan sayuran segar, instalasi, dan pelatihan.</p>
+                <div class="col-md-5 mb-3">
+                    <h4 class="mb-2 fw-bold"><?= $settings['site_title'] ?? 'Hidroganik Alfa' ?></h4>
+                    <p class="text-white-50 small">Solusi hidroponik terbaik untuk kebutuhan pertanian modern Anda. Menyediakan sayuran segar, instalasi, dan pelatihan.</p>
                     
-                    <div class="mt-4">
-                        <a href="<?= $settings['social_fb'] ?? '#' ?>" target="_blank" class="text-white me-3 fs-4"><i class="fab fa-facebook"></i></a>
-                        <a href="<?= $settings['social_ig'] ?? '#' ?>" target="_blank" class="text-white me-3 fs-4"><i class="fab fa-instagram"></i></a>
-                        <a href="<?= $settings['social_yt'] ?? '#' ?>" target="_blank" class="text-white me-3 fs-4"><i class="fab fa-youtube"></i></a>
-                        <a href="<?= $settings['social_wa'] ?? '#' ?>" target="_blank" class="text-white fs-4"><i class="fab fa-whatsapp"></i></a>
+                    <div class="mt-2">
+                        <a href="<?= $settings['social_fb'] ?? '#' ?>" target="_blank" class="text-white me-3 fs-5"><i class="fab fa-facebook"></i></a>
+                        <a href="<?= $settings['social_ig'] ?? '#' ?>" target="_blank" class="text-white me-3 fs-5"><i class="fab fa-instagram"></i></a>
+                        <a href="<?= $settings['social_yt'] ?? '#' ?>" target="_blank" class="text-white me-3 fs-5"><i class="fab fa-youtube"></i></a>
+                        <a href="<?= $settings['social_wa'] ?? '#' ?>" target="_blank" class="text-white fs-5"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
                 
                 <div class="col-md-2"></div>
 
-                <div class="col-md-5 mb-4">
-                    <h5 class="mb-4 text-white border-bottom border-success d-inline-block pb-2">Kontak Kami</h5>
-                    <ul class="list-unstyled text-white-50">
-                        <li class="mb-3 d-flex">
-                            <i class="fas fa-map-marker-alt mt-1 me-3 text-success"></i>
+                <div class="col-md-5 mb-3">
+                    <h5 class="mb-3 text-white border-bottom border-success d-inline-block pb-1">Kontak Kami</h5>
+                    <ul class="list-unstyled text-white-50 small">
+                        <li class="mb-1 d-flex">
+                            <i class="fas fa-map-marker-alt mt-1 me-2 text-success"></i>
                             <span><?= nl2br($settings['contact_address'] ?? 'Alamat belum diatur') ?></span>
                         </li>
-                        <li class="mb-3">
-                            <i class="fab fa-whatsapp me-3 text-success"></i>
+                        <li class="mb-1">
+                            <i class="fab fa-whatsapp me-2 text-success"></i>
                             <?= $settings['contact_phone'] ?? '-' ?>
                         </li>
-                        <li class="mb-3">
-                            <i class="fas fa-envelope me-3 text-success"></i>
+                        <li class="mb-1">
+                            <i class="fas fa-envelope me-2 text-success"></i>
                             <?= $settings['contact_email'] ?? '-' ?>
                         </li>
-                        <li class="mb-3">
-                            <i class="fab fa-instagram me-3 text-success"></i>
+                        <li class="mb-1">
+                            <i class="fab fa-instagram me-2 text-success"></i>
                             <?= $settings['contact_ig_handle'] ?? '-' ?>
                         </li>
-                        <li class="mb-3">
-                            <i class="fas fa-clock me-3 text-success"></i>
+                        <li class="mb-1">
+                            <i class="fas fa-clock me-2 text-success"></i>
                             <?= $settings['contact_hours'] ?? '-' ?>
                         </li>
                     </ul>
                 </div>
             </div>
-            <hr class="border-secondary mt-4">
-            <div class="text-center pt-3 text-white-50 small">
+            <hr class="border-secondary mt-3 mb-3">
+            <div class="text-center text-white-50 small">
                 <p class="mb-0">&copy; <?= date('Y') ?> <?= $settings['site_title'] ?? 'Hidroganik Alfa' ?>. All rights reserved.</p>
             </div>
         </div>
@@ -453,6 +650,17 @@
     </style>
 
     <script>
+        function scrollServices(direction) {
+            const container = document.getElementById('serviceContainer');
+            const scrollAmount = 350; // Adjust scroll distance
+            
+            if (direction === 'left') {
+                container.scrollLeft -= scrollAmount;
+            } else {
+                container.scrollLeft += scrollAmount;
+            }
+        }
+
         function toggleContact() {
             const list = document.getElementById('contactList');
             const btn = document.getElementById('mainFab');

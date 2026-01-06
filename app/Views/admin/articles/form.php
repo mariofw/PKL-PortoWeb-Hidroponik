@@ -3,11 +3,8 @@
 <?= $this->section('content') ?>
 <h3><?= ucfirst($action) ?> Article</h3>
 
-<form action="<?= $action === 'edit' ? '/admin/articles/'.$article['id'] : '/admin/articles' ?>" method="post" enctype="multipart/form-data">
+<form action="<?= $action === 'edit' ? '/admin/articles/update/'.$article['id'] : '/admin/articles/store' ?>" method="post" enctype="multipart/form-data">
     <?= csrf_field() ?>
-    <?php if($action === 'edit'): ?>
-        <input type="hidden" name="_method" value="PUT">
-    <?php endif; ?>
 
     <div class="row">
         <div class="col-md-8">

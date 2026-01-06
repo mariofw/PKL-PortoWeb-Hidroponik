@@ -7,6 +7,7 @@ use App\Models\ServiceModel;
 use App\Models\ArticleModel;
 use App\Models\SiteSettingModel;
 use App\Models\VisitorModel;
+use App\Models\PartnerModel;
 
 class Home extends BaseController
 {
@@ -31,6 +32,7 @@ class Home extends BaseController
         $data['sliders'] = (new SliderModel())->orderBy('order_index', 'ASC')->findAll();
         $data['services'] = (new ServiceModel())->findAll();
         $data['articles'] = (new ArticleModel())->orderBy('created_at', 'DESC')->findAll();
+        $data['partners'] = (new PartnerModel())->orderBy('created_at', 'DESC')->findAll();
         
         $settings = (new SiteSettingModel())->findAll();
         $data['settings'] = [];

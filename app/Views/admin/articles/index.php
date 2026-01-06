@@ -3,7 +3,7 @@
 <?= $this->section('content') ?>
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h3>Articles</h3>
-    <a href="/admin/articles/new" class="btn btn-primary">Add New</a>
+    <a href="/admin/articles/create" class="btn btn-primary">Add New</a>
 </div>
 
 <?php if(session()->getFlashdata('message')): ?>
@@ -32,8 +32,8 @@
             <td><?= $article['author'] ?></td>
             <td><?= $article['created_at'] ?></td>
             <td>
-                <a href="/admin/articles/<?= $article['id'] ?>/edit" class="btn btn-sm btn-warning">Edit</a>
-                <a href="/admin/articles/<?= $article['id'] ?>/delete" class="btn btn-sm btn-danger" onclick="return confirm('Delete?')">Delete</a>
+                <a href="/admin/articles/edit/<?= $article['id'] ?>" class="btn btn-sm btn-warning">Edit</a>
+                <a href="/admin/articles/delete/<?= $article['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Delete?')">Delete</a>
             </td>
         </tr>
         <?php endforeach; ?>

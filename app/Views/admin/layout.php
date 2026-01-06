@@ -6,6 +6,7 @@
     <title>Admin Dashboard - Hidroganik Alfa</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
     <style>
         .sidebar {
             min-height: 100vh;
@@ -45,6 +46,9 @@
                 <li>
                     <a href="/admin/articles" class="nav-link text-white">Articles</a>
                 </li>
+                <li>
+                    <a href="/admin/partners" class="nav-link text-white">Partners</a>
+                </li>
             </ul>
             <hr>
             <div class="dropdown">
@@ -57,6 +61,7 @@
             <?= $this->renderSection('content') ?>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

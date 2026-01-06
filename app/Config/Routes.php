@@ -20,5 +20,18 @@ $routes->group('admin', ['filter' => 'AuthFilter', 'namespace' => 'App\Controlle
     
     $routes->resource('sliders');
     $routes->resource('services');
-    $routes->resource('articles');
+    $routes->get('articles', 'Articles::index');
+    $routes->get('articles/create', 'Articles::create');
+    $routes->get('articles/new', 'Articles::create'); // Alias for legacy/cached links
+    $routes->post('articles/store', 'Articles::store');
+    $routes->get('articles/edit/(:num)', 'Articles::edit/$1');
+    $routes->post('articles/update/(:num)', 'Articles::update/$1');
+    $routes->get('articles/delete/(:num)', 'Articles::delete/$1');
+
+    $routes->get('partners', 'Partners::index');
+    $routes->get('partners/create', 'Partners::create');
+    $routes->post('partners/store', 'Partners::store');
+    $routes->get('partners/edit/(:num)', 'Partners::edit/$1');
+    $routes->post('partners/update/(:num)', 'Partners::update/$1');
+    $routes->get('partners/delete/(:num)', 'Partners::delete/$1');
 });
