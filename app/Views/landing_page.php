@@ -440,6 +440,103 @@
         </div>
     </section>
 
+    <!-- Contribution Section (SDGs & Green Economy) -->
+    <section id="contribution" class="bg-white py-5">
+        <div class="container">
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <h6 class="text-uppercase fw-bold text-success mb-2" style="letter-spacing: 2px; font-size: 0.85rem;">Kontribusi Kami</h6>
+                <h2 class="fw-bold text-dark">Kontribusi Kami Pada SDGs & Green Economy</h2>
+            </div>
+
+            <div class="row g-4">
+                <!-- Left Column: Poin-Poin SDGs (Dark Green Box) -->
+                <div class="col-lg-6">
+                    <div class="p-4 rounded-4 h-100 position-relative" style="background-color: #1b5e20; min-height: 400px;">
+                        <h4 class="text-center text-white fw-bold mb-4">Poin-Poin SDGs</h4>
+                        
+                        <div class="row g-3">
+                            <div class="col-4">
+                                <div class="bg-white rounded-2 p-1 h-100 d-flex align-items-center justify-content-center overflow-hidden">
+                                    <img src="/uploads/poin2sdg.gif" class="img-fluid w-100" alt="SDG 2">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="bg-white rounded-2 p-1 h-100 d-flex align-items-center justify-content-center overflow-hidden">
+                                    <img src="/uploads/poin3sdg.gif" class="img-fluid w-100" alt="SDG 3">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="bg-white rounded-2 p-1 h-100 d-flex align-items-center justify-content-center overflow-hidden">
+                                    <img src="/uploads/poin6sdg.gif" class="img-fluid w-100" alt="SDG 6">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="bg-white rounded-2 p-1 h-100 d-flex align-items-center justify-content-center overflow-hidden">
+                                    <img src="/uploads/poin11sdg.gif" class="img-fluid w-100" alt="SDG 11">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="bg-white rounded-2 p-1 h-100 d-flex align-items-center justify-content-center overflow-hidden">
+                                    <img src="/uploads/poin12sdg.gif" class="img-fluid w-100" alt="SDG 12">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="bg-white rounded-2 p-1 h-100 d-flex align-items-center justify-content-center overflow-hidden">
+                                    <img src="/uploads/poin13sdg.gif" class="img-fluid w-100" alt="SDG 13">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Green Economy (White) -->
+                <div class="col-lg-6">
+                    <div class="p-4 h-100">
+                        <h4 class="text-center text-dark fw-bold mb-4">Green Economy</h4>
+                        
+                        <div class="row g-3">
+                            <div class="col-4">
+                                <div class="card border-0 shadow-sm h-100 d-flex align-items-center justify-content-center p-2 rounded-3 hover-up">
+                                    <img src="/uploads/5.%20Efiensi%20Energi.png" class="img-fluid" alt="Efisiensi Energi">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="card border-0 shadow-sm h-100 d-flex align-items-center justify-content-center p-2 rounded-3 hover-up">
+                                    <img src="/uploads/1.%20PRODUK%20BERKELANJUTAN.png" class="img-fluid" alt="Produk Berkelanjutan">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="card border-0 shadow-sm h-100 d-flex align-items-center justify-content-center p-2 rounded-3 hover-up">
+                                    <img src="/uploads/3.%20Pemberdayaan%20Masyarakat.png" class="img-fluid" alt="Pemberdayaan Masyarakat">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="card border-0 shadow-sm h-100 d-flex align-items-center justify-content-center p-2 rounded-3 hover-up">
+                                    <img src="/uploads/4.%20Penghijauaan%20Kota.png" class="img-fluid" alt="Penghijauan Kota">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="card border-0 shadow-sm h-100 d-flex align-items-center justify-content-center p-2 rounded-3 hover-up">
+                                    <img src="/uploads/2.%20PRODUK%20RAMAH%20LINGKUNGAN.png" class="img-fluid" alt="Ramah Lingkungan">
+                                </div>
+                            </div>
+                             <div class="col-4">
+                                <div class="card border-0 shadow-sm h-100 d-flex align-items-center justify-content-center p-2 rounded-3 hover-up">
+                                    <img src="/uploads/6.%20inovasi%20berbasis%20limba.png" class="img-fluid" alt="Inovasi Limbah">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            .hover-up { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+            .hover-up:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; }
+        </style>
+    </section>
+
     <!-- Articles -->
     <section id="articles" class="bg-hydro-light">
         <div class="container">
