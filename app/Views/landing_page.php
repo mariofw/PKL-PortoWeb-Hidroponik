@@ -17,6 +17,7 @@
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             color: #333;
+            padding-top: 70px; /* Offset for fixed navbar */
         }
 
         /* Navbar & Footer Override */
@@ -27,10 +28,24 @@
         .navbar.bg-white .nav-link {
             color: var(--hydro-dark) !important;
             font-weight: 600;
-            transition: color 0.3s;
+            transition: color 0.3s, transform 0.2s ease;
+            display: inline-block;
         }
         .navbar.bg-white .nav-link:hover {
             color: var(--hydro-accent) !important;
+            transform: scale(1.08);
+        }
+
+        /* Navbar Dividers (Desktop) */
+        @media (min-width: 992px) {
+            .navbar-nav .nav-item .nav-link {
+                border-right: 1px solid rgba(0,0,0,0.08);
+                padding-right: 15px;
+                padding-left: 15px;
+            }
+            .navbar-nav .nav-item:nth-last-child(2) .nav-link {
+                border-right: none;
+            }
         }
         
         /* Section Background Override */
@@ -62,7 +77,7 @@
         }
 
         .hero-img {
-            height: 650px;
+            height: calc(100vh - 70px);
             object-fit: cover;
             filter: brightness(0.9); /* Sedikit gelap agar teks terbaca */
         }
@@ -271,8 +286,12 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#about">Tentang Kami</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#competency">Ujikom</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#partners">Partner</a></li>
                     <li class="nav-item"><a class="nav-link" href="#services">Layanan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contribution">Kontribusi</a></li>
                     <li class="nav-item"><a class="nav-link" href="#articles">Artikel</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#location-title">Lokasi</a></li>
                     <?php if(session()->get('is_logged_in')): ?>
                         <li class="nav-item"><a class="btn btn-success ms-2 fw-bold text-white" href="/admin">Dashboard</a></li>
                     <?php else: ?>
@@ -343,6 +362,79 @@
             </div>
         </div>
     </section>
+
+    <!-- Competency Test Section (Sertifikat) -->
+    <section id="competency" class="bg-hydro-light">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Uji Kompetensi</h2>
+                <p class="text-muted mb-5">Sertifikasi dan pencapaian yang telah kami raih.</p>
+            </div>
+            
+            <div class="row justify-content-center">
+                <?php if(!empty($certificates)): ?>
+                    <?php foreach($certificates as $cert): ?>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden certificate-card position-relative">
+                            <div class="certificate-img-wrapper position-relative">
+                                <img src="/<?= $cert['image_path'] ?>" class="w-100 h-100 object-fit-cover" alt="<?= $cert['title'] ?>">
+                                
+                                <!-- Hover Overlay for Description -->
+                                <div class="certificate-overlay">
+                                    <div class="text-white text-center p-3">
+                                        <?php if(!empty($cert['description'])): ?>
+                                            <p class="mb-0 small fw-bold"><?= $cert['description'] ?></p>
+                                        <?php else: ?>
+                                             <i class="fas fa-search-plus fa-2x"></i>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body text-center bg-white p-3">
+                                <h5 class="card-title fw-bold text-hydro mb-0" style="font-size: 1.1rem;"><?= $cert['title'] ?></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="col-12 text-center text-muted">Belum ada sertifikat yang ditampilkan.</div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .certificate-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .certificate-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important;
+        }
+        .certificate-img-wrapper {
+            height: 300px; /* Fixed height for consistency */
+            overflow: hidden;
+        }
+        .object-fit-cover {
+            object-fit: cover;
+        }
+        .certificate-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(27, 94, 32, 0.85); /* Hydro Dark with opacity */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .certificate-card:hover .certificate-overlay {
+            opacity: 1;
+        }
+    </style>
 
     <!-- Partners Section -->
     <section id="partners" class="bg-white">
@@ -445,7 +537,6 @@
         <div class="container">
             <!-- Header -->
             <div class="text-center mb-5">
-                <h6 class="text-uppercase fw-bold text-success mb-2" style="letter-spacing: 2px; font-size: 0.85rem;">Kontribusi Kami</h6>
                 <h2 class="fw-bold text-dark">Kontribusi Kami Pada SDGs & Green Economy</h2>
             </div>
 
@@ -457,38 +548,90 @@
                         
                         <div class="row g-3">
                             <div class="col-4">
-                                <div class="bg-white rounded-2 p-1 h-100 d-flex align-items-center justify-content-center overflow-hidden">
+                                <div class="sdg-card bg-white rounded-2 p-1 h-100 d-flex align-items-center justify-content-center overflow-hidden position-relative">
                                     <img src="/uploads/poin2sdg.gif" class="img-fluid w-100" alt="SDG 2">
+                                    <div class="sdg-overlay">
+                                        <p class="sdg-text">Mendukung ketahanan pangan melalui sistem pertanian yang sehat dan berkelanjutan.</p>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-4">
-                                <div class="bg-white rounded-2 p-1 h-100 d-flex align-items-center justify-content-center overflow-hidden">
+                                <div class="sdg-card bg-white rounded-2 p-1 h-100 d-flex align-items-center justify-content-center overflow-hidden position-relative">
                                     <img src="/uploads/poin3sdg.gif" class="img-fluid w-100" alt="SDG 3">
+                                    <div class="sdg-overlay">
+                                        <p class="sdg-text">Produk bebas pestisida kimia berbahaya, menjaga kesehatan konsumen dan lingkungan.</p>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-4">
-                                <div class="bg-white rounded-2 p-1 h-100 d-flex align-items-center justify-content-center overflow-hidden">
+                                <div class="sdg-card bg-white rounded-2 p-1 h-100 d-flex align-items-center justify-content-center overflow-hidden position-relative">
                                     <img src="/uploads/poin6sdg.gif" class="img-fluid w-100" alt="SDG 6">
+                                    <div class="sdg-overlay">
+                                        <p class="sdg-text">Sistem hidroponik menghemat hingga 90% penggunaan air dibanding pertanian konvensional.</p>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-4">
-                                <div class="bg-white rounded-2 p-1 h-100 d-flex align-items-center justify-content-center overflow-hidden">
+                                <div class="sdg-card bg-white rounded-2 p-1 h-100 d-flex align-items-center justify-content-center overflow-hidden position-relative">
                                     <img src="/uploads/poin11sdg.gif" class="img-fluid w-100" alt="SDG 11">
+                                    <div class="sdg-overlay">
+                                        <p class="sdg-text">Memanfaatkan lahan sempit di perkotaan menjadi area produktif dan hijau.</p>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-4">
-                                <div class="bg-white rounded-2 p-1 h-100 d-flex align-items-center justify-content-center overflow-hidden">
+                                <div class="sdg-card bg-white rounded-2 p-1 h-100 d-flex align-items-center justify-content-center overflow-hidden position-relative">
                                     <img src="/uploads/poin12sdg.gif" class="img-fluid w-100" alt="SDG 12">
+                                    <div class="sdg-overlay">
+                                        <p class="sdg-text">Mengurangi limbah rumah tangga dengan memanfaatkannya sebagai media tanam.</p>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-4">
-                                <div class="bg-white rounded-2 p-1 h-100 d-flex align-items-center justify-content-center overflow-hidden">
+                                <div class="sdg-card bg-white rounded-2 p-1 h-100 d-flex align-items-center justify-content-center overflow-hidden position-relative">
                                     <img src="/uploads/poin13sdg.gif" class="img-fluid w-100" alt="SDG 13">
+                                    <div class="sdg-overlay">
+                                        <p class="sdg-text">Mengurangi jejak karbon melalui pertanian lokal dan distribusi yang lebih singkat.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                
+                <style>
+                    .sdg-card {
+                        cursor: pointer;
+                    }
+                    .sdg-overlay {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(27, 94, 32, 0.95); /* Deep Green */
+                        color: white;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        text-align: center;
+                        padding: 5px;
+                        opacity: 0;
+                        transition: opacity 0.3s ease;
+                    }
+                    .sdg-card:hover .sdg-overlay {
+                        opacity: 1;
+                    }
+                    .sdg-text {
+                        font-size: 0.65rem;
+                        line-height: 1.2;
+                        margin: 0;
+                        font-weight: 500;
+                    }
+                    @media (min-width: 992px) {
+                        .sdg-text { font-size: 0.7rem; }
+                    }
+                </style>
 
                 <!-- Right Column: Green Economy (White) -->
                 <div class="col-lg-6">

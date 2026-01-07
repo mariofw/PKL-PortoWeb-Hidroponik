@@ -8,6 +8,7 @@ use App\Models\ArticleModel;
 use App\Models\SiteSettingModel;
 use App\Models\VisitorModel;
 use App\Models\PartnerModel;
+use App\Models\CertificateModel;
 
 class Home extends BaseController
 {
@@ -33,6 +34,7 @@ class Home extends BaseController
         $data['services'] = (new ServiceModel())->findAll();
         $data['articles'] = (new ArticleModel())->orderBy('created_at', 'DESC')->findAll();
         $data['partners'] = (new PartnerModel())->orderBy('created_at', 'DESC')->findAll();
+        $data['certificates'] = (new CertificateModel())->orderBy('created_at', 'DESC')->findAll();
         
         $settings = (new SiteSettingModel())->findAll();
         $data['settings'] = [];

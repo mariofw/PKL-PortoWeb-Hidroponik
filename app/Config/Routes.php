@@ -34,4 +34,14 @@ $routes->group('admin', ['filter' => 'AuthFilter', 'namespace' => 'App\Controlle
     $routes->get('partners/edit/(:num)', 'Partners::edit/$1');
     $routes->post('partners/update/(:num)', 'Partners::update/$1');
     $routes->get('partners/delete/(:num)', 'Partners::delete/$1');
+
+    $routes->get('certificates', 'Certificates::index');
+    $routes->get('certificates/create', 'Certificates::new');
+    $routes->post('certificates/store', 'Certificates::create');
+    $routes->get('certificates/edit/(:num)', 'Certificates::edit/$1');
+    $routes->post('certificates/update/(:num)', 'Certificates::update/$1');
+    $routes->get('certificates/delete/(:num)', 'Certificates::delete/$1');
+
+    $routes->get('profile', 'Profile::index');
+    $routes->post('profile/update', 'Profile::update');
 });

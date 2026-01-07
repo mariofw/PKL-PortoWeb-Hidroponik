@@ -28,6 +28,7 @@ class Auth extends BaseController
                 session()->set([
                     'id' => $user['id'],
                     'username' => $user['username'],
+                    'user_avatar' => $user['avatar'], // Add avatar to session
                     'is_logged_in' => true
                 ]);
                 return redirect()->to('/admin');
