@@ -30,6 +30,7 @@
                 <div class="mb-3">
                     <label for="logo" class="form-label">Logo Partner (Gambar)</label>
                     <input type="file" class="form-control" id="logo" name="logo" accept="image/*" <?= isset($partner) ? '' : 'required' ?>>
+                    <small class="text-muted">Maksimal 15MB</small>
                     <?php if(isset($partner) && $partner['logo_path']): ?>
                         <div class="mt-2">
                             <img src="/<?= $partner['logo_path'] ?>" alt="Preview" height="100" class="img-thumbnail">

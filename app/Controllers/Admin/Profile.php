@@ -41,7 +41,7 @@ class Profile extends BaseController
 
         $rules = [
             'username' => "required|min_length[3]|is_unique[users.username,id,{$userId}]",
-            'avatar'   => 'permit_empty|is_image[avatar]|mime_in[avatar,image/jpg,image/jpeg,image/png,image/webp]|max_size[avatar,2048]',
+            'avatar'   => 'permit_empty|is_image[avatar]|mime_in[avatar,image/jpg,image/jpeg,image/png,image/webp]|max_size[avatar,15360]',
         ];
 
         // Only validate password if it's being changed

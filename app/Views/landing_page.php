@@ -228,7 +228,8 @@
         /* Services Redesign */
         .service-card {
             position: relative;
-            height: 300px;
+            width: 100%;
+            aspect-ratio: 1/1;
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
@@ -338,7 +339,7 @@
             <div class="row align-items-center mb-5">
                 <div class="col-md-6">
                     <?php if(isset($settings['about_us_image'])): ?>
-                        <img src="/<?= $settings['about_us_image'] ?>" class="img-fluid rounded shadow border border-success border-2">
+                        <img src="/<?= $settings['about_us_image'] ?>" class="img-fluid rounded shadow border border-success border-2" style="aspect-ratio: 1/1; object-fit: cover; width: 100%;">
                     <?php else: ?>
                         <div class="bg-secondary text-white d-flex align-items-center justify-content-center rounded" style="height: 300px;">No Image</div>
                     <?php endif; ?>
@@ -412,7 +413,8 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important;
         }
         .certificate-img-wrapper {
-            height: 300px; /* Fixed height for consistency */
+            width: 100%;
+            aspect-ratio: 1/1;
             overflow: hidden;
         }
         .object-fit-cover {

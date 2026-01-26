@@ -27,6 +27,7 @@
             <div class="mb-2"><img src="/<?= $slider['image_path'] ?>" height="100"></div>
         <?php endif; ?>
         <input type="file" name="image" class="form-control" <?= $action === 'create' ? 'required' : '' ?>>
+        <small class="text-muted">Maksimal 15MB</small>
     </div>
 
     <button type="submit" class="btn btn-primary">Save</button>

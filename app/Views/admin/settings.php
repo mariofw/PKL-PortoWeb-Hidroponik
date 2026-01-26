@@ -25,6 +25,7 @@
                             <div class="mb-2"><img src="/<?= $settings['site_logo'] ?>" height="50"></div>
                         <?php endif; ?>
                         <input type="file" name="site_logo" class="form-control">
+                        <small class="text-muted">Maksimal 15MB</small>
                     </div>
                 </div>
             </div>
@@ -92,6 +93,7 @@
                             <div class="mb-2"><img src="/<?= $settings['about_us_image'] ?>" height="100"></div>
                         <?php endif; ?>
                         <input type="file" name="about_us_image" class="form-control">
+                        <small class="text-muted">Maksimal 15MB</small>
                     </div>
                 </div>
             </div>
@@ -109,6 +111,7 @@
                             <div class="mb-2"><img src="/<?= $settings['owner_image'] ?>" height="100"></div>
                         <?php endif; ?>
                         <input type="file" name="owner_image" class="form-control">
+                        <small class="text-muted">Maksimal 15MB</small>
                     </div>
                 </div>
             </div>

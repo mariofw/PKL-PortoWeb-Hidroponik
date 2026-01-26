@@ -35,7 +35,7 @@ class Partners extends BaseController
             'logo' => [
                 'uploaded[logo]',
                 'mime_in[logo,image/jpg,image/jpeg,image/png,image/gif]',
-                'max_size[logo,2048]',
+                'max_size[logo,15360]',
             ],
         ])) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
@@ -81,7 +81,7 @@ class Partners extends BaseController
             $rules['logo'] = [
                 'uploaded[logo]',
                 'mime_in[logo,image/jpg,image/jpeg,image/png,image/gif]',
-                'max_size[logo,2048]',
+                'max_size[logo,15360]',
             ];
         }
 

@@ -23,6 +23,7 @@
             <div class="mb-2"><img src="/<?= $service['icon_image'] ?>" height="100"></div>
         <?php endif; ?>
         <input type="file" name="image" id="imageInput" class="form-control" accept="image/*">
+        <small class="text-muted">Maksimal 15MB</small>
         <div id="croppedResult" class="mt-2" style="display:none;">
             <p class="text-success small"><i class="fas fa-check-circle"></i> Image Cropped Ready to Upload</p>
             <img id="previewResult" src="" height="100" class="border rounded">

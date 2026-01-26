@@ -43,6 +43,7 @@
                     <div class="mb-2"><img src="/<?= $article['image_path'] ?>" class="img-fluid rounded"></div>
                 <?php endif; ?>
                 <input type="file" name="image" class="form-control">
+                <small class="text-muted">Maksimal 15MB</small>
             </div>
         </div>
     </div>

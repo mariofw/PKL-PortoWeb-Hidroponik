@@ -40,7 +40,7 @@
                                     <img src="<?= $avatarPath ?>" alt="Profile Avatar" class="img-thumbnail rounded-circle shadow-sm" style="width: 150px; height: 150px; object-fit: cover;">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="avatar" class="form-label small text-muted">Ganti Foto Profil</label>
+                                    <label for="avatar" class="form-label small text-muted">Ganti Foto Profil (Maksimal 15MB)</label>
                                     <input type="file" class="form-control form-control-sm" id="avatar" name="avatar" accept="image/*">
                                 </div>
                             </div>

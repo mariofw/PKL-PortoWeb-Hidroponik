@@ -35,6 +35,7 @@
                 <div class="mb-3">
                     <label for="image" class="form-label">Gambar Sertifikat</label>
                     <input type="file" class="form-control" id="image" name="image" accept="image/*" <?= isset($certificate) ? '' : 'required' ?>>
+                    <small class="text-muted">Maksimal 15MB</small>
                     <?php if(isset($certificate) && $certificate['image_path']): ?>
                         <div class="mt-2">
                             <img src="/<?= $certificate['image_path'] ?>" alt="Preview" height="150" class="img-thumbnail">
