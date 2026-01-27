@@ -32,16 +32,19 @@
                             <div class="col-md-4 text-center">
                                 <div class="mb-3">
                                     <?php 
-                                        $avatarPath = !empty($user['avatar']) ? $user['avatar'] : 'https://ui-avatars.com/api/?name='.urlencode($user['username']).'&background=random';
-                                        if (!empty($user['avatar']) && !filter_var($user['avatar'], FILTER_VALIDATE_URL)) {
-                                            $avatarPath = '/' . $user['avatar'];
-                                        }
+                                        $avatarPath = '/'.($user['avatar'] ?? 'default-avatar.png'); // Fallback to a default
+                                        $previewSrc = !empty($user['avatar']) ? '/'.esc($user['avatar']) : '';
+                                        $previewDisplay = !empty($user['avatar']) ? 'block' : 'none';
                                     ?>
-                                    <img src="<?= $avatarPath ?>" alt="Profile Avatar" class="img-thumbnail rounded-circle shadow-sm" style="width: 150px; height: 150px; object-fit: cover;">
+                                    <img src="<?= $previewSrc ?>" id="avatar_preview" class="img-thumbnail rounded-circle shadow-sm" style="width: 150px; height: 150px; object-fit: cover; display: <?= $previewDisplay ?>;">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="avatar" class="form-label small text-muted">Ganti Foto Profil (Maksimal 15MB)</label>
-                                    <input type="file" class="form-control form-control-sm" id="avatar" name="avatar" accept="image/*">
+                                    <label for="avatar" class="form-label small text-muted">Ganti Foto Profil</label>
+                                    <input type="file" class="form-control form-control-sm image-cropper-input" id="avatar" name="avatar" accept="image/*"
+                                           data-hidden-input-id="cropped_avatar_data"
+                                           data-preview-id="avatar_preview"
+                                           data-aspect-ratio="1/1">
+                                    <input type="hidden" name="cropped_avatar" id="cropped_avatar_data">
                                 </div>
                             </div>
                             <div class="col-md-8">

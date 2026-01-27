@@ -39,11 +39,15 @@
             </div>
             <div class="mb-3">
                 <label>Cover Image</label>
-                <?php if(isset($article['image_path'])): ?>
-                    <div class="mb-2"><img src="/<?= $article['image_path'] ?>" class="img-fluid rounded"></div>
-                <?php endif; ?>
-                <input type="file" name="image" class="form-control">
-                <small class="text-muted">Maksimal 15MB</small>
+                <div class="mb-2">
+                    <img src="<?= isset($article['image_path']) && $article['image_path'] ? '/'.esc($article['image_path']) : '' ?>" id="image_preview" style="max-width: 100%; display: <?= isset($article['image_path']) && $article['image_path'] ? 'block' : 'none' ?>;" class="img-fluid rounded">
+                </div>
+                <input type="file" name="image" class="form-control image-cropper-input"
+                       data-hidden-input-id="cropped_image_data"
+                       data-preview-id="image_preview"
+                       data-aspect-ratio="4/5">
+                <input type="hidden" name="cropped_image" id="cropped_image_data">
+                <small class="text-muted">Pilih gambar untuk membuka cropper (rasio 4:5).</small>
             </div>
         </div>
     </div>

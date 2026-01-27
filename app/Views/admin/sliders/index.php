@@ -26,8 +26,11 @@
             <td><?= $slider['title'] ?></td>
             <td><?= $slider['order_index'] ?></td>
             <td>
-                <a href="/admin/sliders/<?= $slider['id'] ?>/edit" class="btn btn-sm btn-warning">Edit</a>
-                <a href="/admin/sliders/<?= $slider['id'] ?>/delete" class="btn btn-sm btn-danger" onclick="return confirm('Delete?')">Delete</a>
+                <a href="/admin/sliders/edit/<?= $slider['id'] ?>" class="btn btn-sm btn-warning">Edit</a>
+                <form action="/admin/sliders/<?= $slider['id'] ?>" method="post" class="d-inline" onsubmit="return confirm('Are you sure you want todelete this item?');">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
             </td>
         </tr>
         <?php endforeach; ?>

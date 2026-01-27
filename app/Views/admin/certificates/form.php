@@ -34,13 +34,15 @@
 
                 <div class="mb-3">
                     <label for="image" class="form-label">Gambar Sertifikat</label>
-                    <input type="file" class="form-control" id="image" name="image" accept="image/*" <?= isset($certificate) ? '' : 'required' ?>>
-                    <small class="text-muted">Maksimal 15MB</small>
-                    <?php if(isset($certificate) && $certificate['image_path']): ?>
-                        <div class="mt-2">
-                            <img src="/<?= $certificate['image_path'] ?>" alt="Preview" height="150" class="img-thumbnail">
-                        </div>
-                    <?php endif; ?>
+                    <div class="mb-2">
+                        <img src="<?= isset($certificate) && $certificate['image_path'] ? '/'.esc($certificate['image_path']) : '' ?>" id="image_preview" style="max-height: 150px; display: <?= isset($certificate) && $certificate['image_path'] ? 'block' : 'none' ?>;" class="img-thumbnail">
+                    </div>
+                    <input type="file" class="form-control image-cropper-input" id="image" name="image" accept="image/*"
+                           data-hidden-input-id="cropped_image_data"
+                           data-preview-id="image_preview"
+                           data-aspect-ratio="1/1">
+                    <input type="hidden" name="cropped_image" id="cropped_image_data">
+                    <small class="text-muted">Pilih gambar untuk membuka cropper (rasio 1:1).</small>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Simpan</button>

@@ -29,13 +29,14 @@
 
                 <div class="mb-3">
                     <label for="logo" class="form-label">Logo Partner (Gambar)</label>
-                    <input type="file" class="form-control" id="logo" name="logo" accept="image/*" <?= isset($partner) ? '' : 'required' ?>>
-                    <small class="text-muted">Maksimal 15MB</small>
-                    <?php if(isset($partner) && $partner['logo_path']): ?>
-                        <div class="mt-2">
-                            <img src="/<?= $partner['logo_path'] ?>" alt="Preview" height="100" class="img-thumbnail">
-                        </div>
-                    <?php endif; ?>
+                    <div class="mb-2">
+                        <img src="<?= isset($partner) && $partner['logo_path'] ? '/'.esc($partner['logo_path']) : '' ?>" id="logo_preview" style="max-height: 100px; display: <?= isset($partner) && $partner['logo_path'] ? 'block' : 'none' ?>;" class="img-thumbnail">
+                    </div>
+                    <input type="file" class="form-control image-cropper-input" id="logo" name="logo" accept="image/*"
+                           data-hidden-input-id="cropped_logo_data"
+                           data-preview-id="logo_preview">
+                    <input type="hidden" name="cropped_logo" id="cropped_logo_data">
+                    <small class="text-muted">Pilih gambar untuk membuka cropper. Disarankan rasio bebas (free-form).</small>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Simpan</button>

@@ -33,7 +33,10 @@
             <td><?= $article['created_at'] ?></td>
             <td>
                 <a href="/admin/articles/edit/<?= $article['id'] ?>" class="btn btn-sm btn-warning">Edit</a>
-                <a href="/admin/articles/delete/<?= $article['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Delete?')">Delete</a>
+                <form action="/admin/articles/delete/<?= $article['id'] ?>" method="post" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
             </td>
         </tr>
         <?php endforeach; ?>

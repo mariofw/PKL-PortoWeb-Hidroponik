@@ -117,11 +117,108 @@
             </footer>
         </div>
     </div>
+
+    <!-- Cropper Modal -->
+    <div class="modal fade" id="cropperModal" tabindex="-1" aria-labelledby="cropperModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="cropperModalLabel">Crop Image</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="img-container">
+                <img id="cropperImage" src="" alt="Source Image" style="max-width: 100%;">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" id="cropButton">Crop & Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.getElementById("sidebarToggle").addEventListener("click", function(){
             document.getElementById("wrapper").classList.toggle("toggled");
+        });
+
+        // Cropper.js logic
+        document.addEventListener('DOMContentLoaded', function () {
+            const cropperModal = new bootstrap.Modal(document.getElementById('cropperModal'));
+            const image = document.getElementById('cropperImage');
+            const cropButton = document.getElementById('cropButton');
+            let cropper;
+            let activeInputElement;
+            let hiddenInput;
+            let previewElement;
+
+            document.querySelectorAll('.image-cropper-input').forEach(input => {
+                input.addEventListener('change', function (e) {
+                    const files = e.target.files;
+                    if (files && files.length > 0) {
+                        activeInputElement = e.target;
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            image.src = e.target.result;
+                            cropperModal.show();
+                        };
+                        reader.readAsDataURL(files[0]);
+                    }
+                });
+            });
+
+            document.getElementById('cropperModal').addEventListener('shown.bs.modal', function () {
+                const aspectRatio = activeInputElement.dataset.aspectRatio ? eval(activeInputElement.dataset.aspectRatio) : (16/9);
+                cropper = new Cropper(image, {
+                    aspectRatio: aspectRatio,
+                    viewMode: 1,
+                    autoCropArea: 0.9,
+                });
+            });
+
+            document.getElementById('cropperModal').addEventListener('hidden.bs.modal', function () {
+                cropper.destroy();
+                cropper = null;
+                // Clear the file input to allow re-selection of the same file
+                if(activeInputElement) {
+                    activeInputElement.value = '';
+                }
+            });
+
+            cropButton.addEventListener('click', function () {
+                const canvas = cropper.getCroppedCanvas({
+                    // maxWidth: 4096,
+                    // maxHeight: 4096,
+                    // imageSmoothingQuality: 'high',
+                });
+
+                canvas.toBlob(function (blob) {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(blob); 
+                    reader.onloadend = function() {
+                        const base64data = reader.result;                
+                        
+                        // Find the associated hidden input and preview element
+                        const hiddenInputId = activeInputElement.dataset.hiddenInputId;
+                        const previewId = activeInputElement.dataset.previewId;
+
+                        if (hiddenInputId) {
+                            document.getElementById(hiddenInputId).value = base64data;
+                        }
+                        if (previewId) {
+                            const previewEl = document.getElementById(previewId);
+                            previewEl.src = base64data;
+                            previewEl.style.display = 'block';
+                        }
+                        
+                        cropperModal.hide();
+                    }
+                }, 'image/jpeg');
+            });
         });
     </script>
 </html>

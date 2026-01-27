@@ -23,11 +23,23 @@
     </div>
     <div class="mb-3">
         <label>Image</label>
-        <?php if(isset($slider['image_path'])): ?>
-            <div class="mb-2"><img src="/<?= $slider['image_path'] ?>" height="100"></div>
-        <?php endif; ?>
-        <input type="file" name="image" class="form-control" <?= $action === 'create' ? 'required' : '' ?>>
-        <small class="text-muted">Maksimal 15MB</small>
+        <?php 
+            $imagePath = $slider['image_path'] ?? '';
+            $previewSrc = !empty($imagePath) ? "/".$imagePath : '';
+            $previewDisplay = !empty($imagePath) ? 'block' : 'none';
+        ?>
+        <div class="mb-2">
+            <img src="<?= $previewSrc ?>" id="image_preview" style="max-height: 100px; display: <?= $previewDisplay ?>;">
+        </div>
+        
+        <input type="file" name="image" class="form-control image-cropper-input" 
+               data-hidden-input-id="cropped_image_data" 
+               data-preview-id="image_preview"
+               data-aspect-ratio="16/9">
+        
+        <input type="hidden" name="cropped_image" id="cropped_image_data">
+
+        <small class="text-muted">Pilih gambar untuk membuka cropper. Rekomendasi rasio 16:9.</small>
     </div>
 
     <button type="submit" class="btn btn-primary">Save</button>

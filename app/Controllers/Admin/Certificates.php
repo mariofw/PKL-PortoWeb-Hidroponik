@@ -36,22 +36,38 @@ class Certificates extends BaseController
     {
         $rules = [
             'title' => 'required|min_length[3]',
-            'image' => 'uploaded[image]|is_image[image]|mime_in[image,image/jpg,image/jpeg,image/png,image/webp]|max_size[image,15360]',
+            'image' => 'permit_empty|is_image[image]|mime_in[image,image/jpg,image/jpeg,image/png,image/webp]|max_size[image,15360]',
         ];
 
-        if (! $this->validate($rules)) {
-            return redirect()->back()->withInput();
+        if (!$this->validate($rules) && empty($this->request->getPost('cropped_image'))) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        $img = $this->request->getFile('image');
-        $newName = $img->getRandomName();
-        $img->move(ROOTPATH . 'public/uploads', $newName);
-
-        $this->certificateModel->save([
+        $data = [
             'title' => $this->request->getPost('title'),
             'description' => $this->request->getPost('description'),
-            'image_path' => 'uploads/' . $newName,
-        ]);
+        ];
+
+        $imagePath = null;
+        $croppedImage = $this->request->getPost('cropped_image');
+        if (!empty($croppedImage)) {
+            $imagePath = $this->_saveBase64Image($croppedImage);
+        } else {
+            $img = $this->request->getFile('image');
+            if ($img && $img->isValid() && !$img->hasMoved()) {
+                $newName = $img->getRandomName();
+                $img->move(ROOTPATH . 'public/uploads', $newName);
+                $imagePath = 'uploads/' . $newName;
+            }
+        }
+
+        if ($imagePath) {
+            $data['image_path'] = $imagePath;
+        } else {
+             return redirect()->back()->withInput()->with('errors', ['image' => 'Image is required.']);
+        }
+
+        $this->certificateModel->save($data);
 
         return redirect()->to('/admin/certificates')->with('success', 'Sertifikat berhasil ditambahkan');
     }
@@ -83,8 +99,8 @@ class Certificates extends BaseController
             'image' => 'permit_empty|is_image[image]|mime_in[image,image/jpg,image/jpeg,image/png,image/webp]|max_size[image,15360]',
         ];
 
-        if (! $this->validate($rules)) {
-            return redirect()->back()->withInput();
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
         $data = [
@@ -92,23 +108,66 @@ class Certificates extends BaseController
             'title' => $this->request->getPost('title'),
             'description' => $this->request->getPost('description'),
         ];
+        
+        $imagePath = null;
+        $newImageUploaded = false;
+        $croppedImage = $this->request->getPost('cropped_image');
 
-        $img = $this->request->getFile('image');
-        if ($img->isValid() && !$img->hasMoved()) {
-            $newName = $img->getRandomName();
-            $img->move(ROOTPATH . 'public/uploads', $newName);
-            
+        if (!empty($croppedImage)) {
+            $imagePath = $this->_saveBase64Image($croppedImage);
+            $newImageUploaded = true;
+        } else {
+            $img = $this->request->getFile('image');
+            if ($img && $img->isValid() && !$img->hasMoved()) {
+                $newName = $img->getRandomName();
+                $img->move(ROOTPATH . 'public/uploads', $newName);
+                $imagePath = 'uploads/' . $newName;
+                $newImageUploaded = true;
+            }
+        }
+
+        if ($newImageUploaded && $imagePath) {
             // Delete old image if exists
             if (!empty($certificate['image_path']) && file_exists(ROOTPATH . 'public/' . $certificate['image_path'])) {
-                unlink(ROOTPATH . 'public/' . $certificate['image_path']);
+                @unlink(ROOTPATH . 'public/' . $certificate['image_path']);
             }
-            
-            $data['image_path'] = 'uploads/' . $newName;
+            $data['image_path'] = $imagePath;
         }
 
         $this->certificateModel->save($data);
 
         return redirect()->to('/admin/certificates')->with('success', 'Sertifikat berhasil diperbarui');
+    }
+
+    private function _saveBase64Image($base64String) {
+        if (empty($base64String) || strpos($base64String, 'data:image') !== 0) {
+            return null;
+        }
+        
+        list($type, $data) = explode(';', $base64String);
+        list(, $data)      = explode(',', $data);
+        $decodedData = base64_decode($data);
+
+        $finfo = new \finfo(FILEINFO_MIME_TYPE);
+        $mime_type = $finfo->buffer($decodedData);
+        $extensions = [
+            'image/jpeg' => 'jpg', 'image/png'  => 'png', 'image/gif'  => 'gif', 'image/webp' => 'webp'
+        ];
+        $extension = $extensions[$mime_type] ?? 'jpg';
+        
+        $newName = bin2hex(random_bytes(10)) . '.' . $extension;
+        $uploadPath = ROOTPATH . 'public/uploads';
+
+        if (!is_dir($uploadPath)) {
+            @mkdir($uploadPath, 0777, true);
+        }
+        
+        $filePath = $uploadPath . '/' . $newName;
+        if (file_put_contents($filePath, $decodedData)) {
+            return 'uploads/' . $newName;
+        }
+        
+        return null;
     }
 
     public function delete($id)

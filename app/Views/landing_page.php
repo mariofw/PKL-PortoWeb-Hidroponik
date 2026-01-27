@@ -169,7 +169,8 @@
         /* Article Hover Effect */
         .article-card {
             position: relative;
-            height: 400px;
+            height: auto;
+            aspect-ratio: 4 / 5;
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
@@ -353,7 +354,7 @@
             <div class="row align-items-center mt-5 p-4 bg-white rounded shadow-sm">
                 <div class="col-md-4 order-md-2 text-center">
                     <?php if(isset($settings['owner_image'])): ?>
-                        <img src="/<?= $settings['owner_image'] ?>" class="img-fluid rounded-circle shadow border border-4 border-success" style="width: 220px; height: 220px; object-fit: cover;">
+                        <img src="/<?= $settings['owner_image'] ?>" class="img-fluid rounded-circle shadow border border-4 border-success" style="max-width: 220px; width: 100%; aspect-ratio: 1/1; object-fit: cover;">
                     <?php endif; ?>
                 </div>
                 <div class="col-md-8 order-md-1">

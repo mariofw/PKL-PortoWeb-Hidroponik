@@ -47,9 +47,12 @@
                                         <a href="/admin/certificates/edit/<?= $cert['id'] ?>" class="btn btn-warning btn-sm">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="/admin/certificates/delete/<?= $cert['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus sertifikat ini?')">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+                                        <form action="/admin/certificates/delete/<?= $cert['id'] ?>" method="post" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus sertifikat ini?');">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

@@ -45,9 +45,12 @@
                                         <a href="/admin/partners/edit/<?= $partner['id'] ?>" class="btn btn-warning btn-sm">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="/admin/partners/delete/<?= $partner['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus partner ini?')">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+                                        <form action="/admin/partners/delete/<?= $partner['id'] ?>" method="post" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus partner ini?');">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

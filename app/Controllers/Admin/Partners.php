@@ -30,26 +30,33 @@ class Partners extends BaseController
 
     public function store()
     {
-        if (!$this->validate([
-            'name' => 'required',
-            'logo' => [
-                'uploaded[logo]',
-                'mime_in[logo,image/jpg,image/jpeg,image/png,image/gif]',
-                'max_size[logo,15360]',
-            ],
-        ])) {
+        $rules = [ 'name' => 'required' ];
+        if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        $logo = $this->request->getFile('logo');
-        $newName = $logo->getRandomName();
-        $logo->move(ROOTPATH . 'public/uploads/partners', $newName);
+        $data = [ 'name' => $this->request->getPost('name') ];
+        $imagePath = null;
+        $croppedImage = $this->request->getPost('cropped_logo');
 
-        $this->partnerModel->save([
-            'name' => $this->request->getPost('name'),
-            'logo_path' => 'uploads/partners/' . $newName,
-        ]);
+        if (!empty($croppedImage)) {
+            $imagePath = $this->_saveBase64Image($croppedImage);
+        } else {
+            $logo = $this->request->getFile('logo');
+            if ($logo && $logo->isValid() && !$logo->hasMoved()) {
+                $newName = $logo->getRandomName();
+                $logo->move(ROOTPATH . 'public/uploads/partners', $newName);
+                $imagePath = 'uploads/partners/' . $newName;
+            }
+        }
+        
+        if ($imagePath) {
+            $data['logo_path'] = $imagePath;
+        } else {
+            return redirect()->back()->withInput()->with('errors', ['logo' => 'Logo image is required.']);
+        }
 
+        $this->partnerModel->save($data);
         return redirect()->to('/admin/partners')->with('success', 'Partner berhasil ditambahkan');
     }
 
@@ -73,19 +80,7 @@ class Partners extends BaseController
             return redirect()->to('/admin/partners')->with('error', 'Partner tidak ditemukan');
         }
 
-        $rules = [
-            'name' => 'required',
-        ];
-
-        if ($this->request->getFile('logo')->isValid()) {
-            $rules['logo'] = [
-                'uploaded[logo]',
-                'mime_in[logo,image/jpg,image/jpeg,image/png,image/gif]',
-                'max_size[logo,15360]',
-            ];
-        }
-
-        if (!$this->validate($rules)) {
+        if (!$this->validate(['name' => 'required'])) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
@@ -94,21 +89,63 @@ class Partners extends BaseController
             'name' => $this->request->getPost('name'),
         ];
 
-        $logo = $this->request->getFile('logo');
-        if ($logo->isValid() && !$logo->hasMoved()) {
-            // Delete old image
-            if (file_exists(ROOTPATH . 'public/' . $partner['logo_path'])) {
-                unlink(ROOTPATH . 'public/' . $partner['logo_path']);
-            }
+        $imagePath = null;
+        $newImageUploaded = false;
+        $croppedImage = $this->request->getPost('cropped_logo');
 
-            $newName = $logo->getRandomName();
-            $logo->move(ROOTPATH . 'public/uploads/partners', $newName);
-            $data['logo_path'] = 'uploads/partners/' . $newName;
+        if (!empty($croppedImage)) {
+            $imagePath = $this->_saveBase64Image($croppedImage);
+            $newImageUploaded = true;
+        } else {
+            $logo = $this->request->getFile('logo');
+            if ($logo && $logo->isValid() && !$logo->hasMoved()) {
+                $newName = $logo->getRandomName();
+                $logo->move(ROOTPATH . 'public/uploads/partners', $newName);
+                $imagePath = 'uploads/partners/' . $newName;
+                $newImageUploaded = true;
+            }
+        }
+
+        if ($newImageUploaded && $imagePath) {
+            if (!empty($partner['logo_path']) && file_exists(ROOTPATH . 'public/' . $partner['logo_path'])) {
+                @unlink(ROOTPATH . 'public/' . $partner['logo_path']);
+            }
+            $data['logo_path'] = $imagePath;
         }
 
         $this->partnerModel->save($data);
-
         return redirect()->to('/admin/partners')->with('success', 'Partner berhasil diperbarui');
+    }
+
+    private function _saveBase64Image($base64String) {
+        if (empty($base64String) || strpos($base64String, 'data:image') !== 0) {
+            return null;
+        }
+        
+        list($type, $data) = explode(';', $base64String);
+        list(, $data)      = explode(',', $data);
+        $decodedData = base64_decode($data);
+
+        $finfo = new \finfo(FILEINFO_MIME_TYPE);
+        $mime_type = $finfo->buffer($decodedData);
+        $extensions = [
+            'image/jpeg' => 'jpg', 'image/png'  => 'png', 'image/gif'  => 'gif', 'image/webp' => 'webp'
+        ];
+        $extension = $extensions[$mime_type] ?? 'jpg';
+        
+        $newName = bin2hex(random_bytes(10)) . '.' . $extension;
+        $uploadPath = ROOTPATH . 'public/uploads/partners';
+
+        if (!is_dir($uploadPath)) {
+            @mkdir($uploadPath, 0777, true);
+        }
+        
+        $filePath = $uploadPath . '/' . $newName;
+        if (file_put_contents($filePath, $decodedData)) {
+            return 'uploads/partners/' . $newName;
+        }
+        
+        return null;
     }
 
     public function delete($id)
