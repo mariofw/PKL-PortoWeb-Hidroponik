@@ -7,26 +7,34 @@
     </div>
     
     <div class="row mb-4">
-        <div class="col-md-6 mb-3">
+        <div class="col-md-6 col-sm-12 mb-3">
             <div class="card bg-success text-white shadow h-100">
-                <div class="card-body d-flex align-items-center">
-                    <div class="me-3 display-4"><i class="fas fa-users"></i></div>
-                    <div>
-                        <h5 class="card-title mb-0">Total Pengunjung</h5>
-                        <p class="display-6 fw-bold mb-0"><?= number_format($total_visitors) ?></p>
-                        <small>Sepanjang waktu</small>
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-4 col-md-3 text-center display-4">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="col-8 col-md-9">
+                            <h5 class="card-title mb-0 text-truncate">Total Pengunjung</h5>
+                            <p class="h2 fw-bold mb-0"><?= number_format($total_visitors) ?></p>
+                            <small class="d-block text-truncate">Sepanjang waktu</small>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-6 mb-3">
+        <div class="col-md-6 col-sm-12 mb-3">
             <div class="card bg-warning text-dark shadow h-100">
-                <div class="card-body d-flex align-items-center">
-                    <div class="me-3 display-4"><i class="fas fa-chart-line"></i></div>
-                    <div>
-                        <h5 class="card-title mb-0">Pengunjung Hari Ini</h5>
-                        <p class="display-6 fw-bold mb-0"><?= number_format($today_visitors) ?></p>
-                        <small>Hits unik hari ini</small>
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-4 col-md-3 text-center display-4">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="col-8 col-md-9">
+                            <h5 class="card-title mb-0 text-truncate">Pengunjung Hari Ini</h5>
+                            <p class="h2 fw-bold mb-0"><?= number_format($today_visitors) ?></p>
+                            <small class="d-block text-truncate">Hits unik hari ini</small>
+                        </div>
                     </div>
                 </div>
             </div>
