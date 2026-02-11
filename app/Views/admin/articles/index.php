@@ -28,11 +28,11 @@
                 <img src="/<?= $article['image_path'] ?>" height="50">
                 <?php endif; ?>
             </td>
-            <td><?= $article['title'] ?></td>
+            <td><?= substr($article['title'], 0, 30) . (strlen($article['title']) > 30 ? '...' : '') ?></td>
             <td><?= $article['author'] ?></td>
             <td><?= $article['created_at'] ?></td>
-            <td>
-                <a href="/admin/articles/edit/<?= $article['id'] ?>" class="btn btn-sm btn-warning">Edit</a>
+            <td style="min-width: 150px;">
+                <a href="/admin/articles/edit/<?= $article['id'] ?>" class="btn btn-sm btn-warning me-2">Edit</a>
                 <form action="/admin/articles/delete/<?= $article['id'] ?>" method="post" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this item?');">
                     <input type="hidden" name="_method" value="DELETE">
                     <button type="submit" class="btn btn-sm btn-danger">Delete</button>
