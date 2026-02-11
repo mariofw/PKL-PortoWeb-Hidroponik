@@ -81,6 +81,11 @@
             object-fit: cover;
             filter: brightness(0.9); /* Sedikit gelap agar teks terbaca */
         }
+        @media (max-width: 768px) {
+            .hero-img {
+                height: 350px;
+            }
+        }
         section {
             padding: 70px 0;
         }
