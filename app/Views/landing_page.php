@@ -342,14 +342,19 @@
                 </div>
                 <div class="col-md-6">
                     <h3 class="text-hydro fw-bold">Hidroganik Alfa</h3>
-                    <p class="lead text-secondary"><?= nl2br($settings['about_us_desc'] ?? 'Deskripsi belum diatur.') ?></p>
+                    <p class="lead text-secondary" style="text-align: justify;"><?= nl2br($settings['about_us_desc'] ?? 'Deskripsi belum diatur.') ?></p>
                 </div>
             </div>
-            
+        </div>
+    </section>
+
+    <!-- Visi Misi & Profil Section (White Background) -->
+    <section class="bg-white">
+        <div class="container">
             <!-- Visi Misi -->
-            <div class="row mt-5 mb-5">
+            <div class="row mb-5">
                 <div class="col-md-6 mb-4 mb-md-0">
-                     <div class="h-100 p-4 bg-white rounded shadow-sm border-top border-4 border-success">
+                     <div class="h-100 p-4 bg-white rounded shadow-lg border-top border-4 border-success">
                         <h4 class="text-hydro fw-bold mb-3 text-center"><i class="fas fa-eye me-2"></i> Visi</h4>
                         <p class="text-secondary" style="line-height: 1.8; text-align: justify;">
                             <?= nl2br($settings['visi'] ?? 'Visi belum diatur.') ?>
@@ -357,7 +362,7 @@
                      </div>
                 </div>
                 <div class="col-md-6">
-                     <div class="h-100 p-4 bg-white rounded shadow-sm border-top border-4 border-success">
+                     <div class="h-100 p-4 bg-white rounded shadow-lg border-top border-4 border-success">
                         <h4 class="text-hydro fw-bold mb-3 text-center"><i class="fas fa-bullseye me-2"></i> Misi</h4>
                         <div class="text-secondary" style="line-height: 1.8; text-align: justify;">
                             <?= nl2br($settings['misi'] ?? 'Misi belum diatur.') ?>
@@ -366,7 +371,7 @@
                 </div>
             </div>
 
-            <div class="row align-items-center mt-5 p-4 bg-white rounded shadow-sm">
+            <div class="row align-items-center p-4 bg-white rounded shadow-lg border-start border-4 border-success">
                 <div class="col-md-4 order-md-2 text-center">
                     <?php if(isset($settings['owner_image'])): ?>
                         <img src="/<?= $settings['owner_image'] ?>" class="img-fluid rounded-circle shadow border border-4 border-success" style="max-width: 220px; width: 100%; aspect-ratio: 1/1; object-fit: cover;">
@@ -374,7 +379,7 @@
                 </div>
                 <div class="col-md-8 order-md-1">
                     <h3 class="text-hydro fw-bold mb-3">Profil Pemilik</h3>
-                    <p class="text-secondary" style="line-height: 1.8;"><?= nl2br($settings['owner_desc'] ?? 'Profil pemilik belum diatur.') ?></p>
+                    <p class="text-secondary" style="line-height: 1.8; text-align: justify;"><?= nl2br($settings['owner_desc'] ?? 'Profil pemilik belum diatur.') ?></p>
                 </div>
             </div>
         </div>
@@ -758,6 +763,9 @@
             </iframe>
         </div>
     </section>
+
+    <!-- Spacer between Map and Footer -->
+    <div class="bg-white py-5"></div>
 
     <!-- Footer -->
     <footer class="bg-hydro-dark text-white py-4">
