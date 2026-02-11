@@ -311,12 +311,7 @@
                 <?php foreach($sliders as $index => $slider): ?>
                 <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
                     <img src="/<?= $slider['image_path'] ?>" class="d-block w-100 hero-img" alt="<?= $slider['title'] ?>">
-                    <div class="carousel-caption d-none d-md-block hydro-caption-box">
-                        <h4 class="fw-bold mb-3 text-light"><?= $slider['title'] ?></h4>
-                        <div style="font-size: 0.95rem; line-height: 1.6; color: #e8f5e9;">
-                            <?= nl2br($slider['description']) ?>
-                        </div>
-                    </div>
+
                 </div>
                 <?php endforeach; ?>
             </div>
@@ -351,6 +346,26 @@
                 </div>
             </div>
             
+            <!-- Visi Misi -->
+            <div class="row mt-5 mb-5">
+                <div class="col-md-6 mb-4 mb-md-0">
+                     <div class="h-100 p-4 bg-white rounded shadow-sm border-top border-4 border-success">
+                        <h4 class="text-hydro fw-bold mb-3 text-center"><i class="fas fa-eye me-2"></i> Visi</h4>
+                        <p class="text-secondary" style="line-height: 1.8; text-align: justify;">
+                            <?= nl2br($settings['visi'] ?? 'Visi belum diatur.') ?>
+                        </p>
+                     </div>
+                </div>
+                <div class="col-md-6">
+                     <div class="h-100 p-4 bg-white rounded shadow-sm border-top border-4 border-success">
+                        <h4 class="text-hydro fw-bold mb-3 text-center"><i class="fas fa-bullseye me-2"></i> Misi</h4>
+                        <div class="text-secondary" style="line-height: 1.8; text-align: justify;">
+                            <?= nl2br($settings['misi'] ?? 'Misi belum diatur.') ?>
+                        </div>
+                     </div>
+                </div>
+            </div>
+
             <div class="row align-items-center mt-5 p-4 bg-white rounded shadow-sm">
                 <div class="col-md-4 order-md-2 text-center">
                     <?php if(isset($settings['owner_image'])): ?>

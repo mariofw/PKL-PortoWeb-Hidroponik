@@ -24,12 +24,9 @@
                         <div class="mb-2">
                             <img src="<?= isset($settings['site_logo']) && !empty($settings['site_logo']) ? '/'.esc($settings['site_logo']) : '' ?>" id="site_logo_preview" style="max-height: 50px; display: <?= isset($settings['site_logo']) && !empty($settings['site_logo']) ? 'block' : 'none' ?>;">
                         </div>
-                        <input type="file" name="site_logo" class="form-control image-cropper-input"
-                               data-hidden-input-id="cropped_site_logo"
-                               data-preview-id="site_logo_preview"
-                               data-aspect-ratio="1/1">
-                        <input type="hidden" name="cropped_site_logo" id="cropped_site_logo">
-                        <small class="text-muted">Pilih gambar untuk membuka cropper (rasio 1:1).</small>
+                        <input type="file" name="site_logo" class="form-control"
+                               onchange="document.getElementById('site_logo_preview').src = window.URL.createObjectURL(this.files[0]); document.getElementById('site_logo_preview').style.display = 'block';">
+                        <small class="text-muted">Rekomendasi logo transparan (PNG).</small>
                     </div>
                 </div>
             </div>
@@ -84,6 +81,20 @@
         </div>
 
         <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header fw-bold">Visi & Misi</div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label>Visi</label>
+                        <textarea name="visi" class="form-control" rows="3"><?= esc($settings['visi'] ?? '') ?></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label>Misi</label>
+                        <textarea name="misi" class="form-control" rows="5"><?= esc($settings['misi'] ?? '') ?></textarea>
+                    </div>
+                </div>
+            </div>
+
             <div class="card mb-4">
                 <div class="card-header fw-bold">About Us Section</div>
                 <div class="card-body">

@@ -18,7 +18,14 @@ $routes->group('admin', ['filter' => 'AuthFilter', 'namespace' => 'App\Controlle
     $routes->get('settings', 'Settings::index');
     $routes->post('settings', 'Settings::save');
     
-    $routes->resource('sliders', ['except' => 'show']);
+    // Sliders
+    $routes->get('sliders', 'Sliders::index');
+    $routes->get('sliders/new', 'Sliders::new');
+    $routes->post('sliders/create', 'Sliders::create');
+    $routes->get('sliders/edit/(:num)', 'Sliders::edit/$1');
+    $routes->post('sliders/update/(:num)', 'Sliders::update/$1');
+    $routes->delete('sliders/delete/(:num)', 'Sliders::delete/$1');
+
     $routes->get('services', 'Services::index');
     $routes->get('services/new', 'Services::new');
     $routes->post('services', 'Services::create');

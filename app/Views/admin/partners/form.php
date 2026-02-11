@@ -32,11 +32,8 @@
                     <div class="mb-2">
                         <img src="<?= isset($partner) && $partner['logo_path'] ? '/'.esc($partner['logo_path']) : '' ?>" id="logo_preview" style="max-height: 100px; display: <?= isset($partner) && $partner['logo_path'] ? 'block' : 'none' ?>;" class="img-thumbnail">
                     </div>
-                    <input type="file" class="form-control image-cropper-input" id="logo" name="logo" accept="image/*"
-                           data-hidden-input-id="cropped_logo_data"
-                           data-preview-id="logo_preview">
-                    <input type="hidden" name="cropped_logo" id="cropped_logo_data">
-                    <small class="text-muted">Pilih gambar untuk membuka cropper. Disarankan rasio bebas (free-form).</small>
+                    <input type="file" class="form-control" id="logo" name="logo" accept="image/*"
+                           onchange="document.getElementById('logo_preview').src = window.URL.createObjectURL(this.files[0]); document.getElementById('logo_preview').style.display = 'block';">
                 </div>
 
                 <button type="submit" class="btn btn-primary">Simpan</button>
