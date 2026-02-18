@@ -810,6 +810,10 @@
                             <?= $settings['contact_ig_handle'] ?? '-' ?>
                         </li>
                         <li class="mb-1">
+                            <i class="fab fa-youtube me-2 text-success"></i>
+                            <?= $settings['contact_yt_handle'] ?? '-' ?>
+                        </li>
+                        <li class="mb-1">
                             <i class="fas fa-clock me-2 text-success"></i>
                             <?= $settings['contact_hours'] ?? '-' ?>
                         </li>
@@ -844,9 +848,9 @@
                 </a>
             <?php endif; ?>
             
-            <?php if(!empty($settings['contact_phone'])): ?>
-                <a href="tel:<?= $settings['contact_phone'] ?>" class="contact-item bg-secondary text-white" title="Telepon">
-                    <i class="fas fa-phone"></i>
+            <?php if(!empty($settings['social_yt'])): ?>
+                <a href="<?= $settings['social_yt'] ?>" target="_blank" class="contact-item bg-danger" title="YouTube">
+                    <i class="fab fa-youtube"></i>
                 </a>
             <?php endif; ?>
         </div>

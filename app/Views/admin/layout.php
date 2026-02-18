@@ -11,7 +11,8 @@
         .sidebar {
             min-height: 100vh;
             background-color: #343a40;
-            transition: margin-left .3s;
+            transition: all .3s;
+            width: 280px;
         }
         .sidebar a {
             color: rgba(255,255,255,0.8);
@@ -25,19 +26,41 @@
             color: #fff;
             border-left: 4px solid #28a745;
         }
-        #wrapper.toggled .sidebar {
-            margin-left: -280px;
+
+        /* Desktop behavior */
+        @media (min-width: 768px) {
+            #wrapper.toggled .sidebar {
+                margin-left: -280px;
+            }
+        }
+
+        /* Mobile behavior */
+        @media (max-width: 767.98px) {
+            .sidebar {
+                position: fixed;
+                width: 100% !important;
+                margin-left: -100%;
+                z-index: 1050;
+            }
+            #wrapper.toggled .sidebar {
+                margin-left: 0;
+            }
         }
     </style>
 </head>
 <body>
     <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
-        <div class="sidebar d-flex flex-column flex-shrink-0 text-white" style="width: 280px;">
-            <a href="/" class="d-flex align-items-center p-3 text-white text-decoration-none bg-dark">
-                <i class="fas fa-leaf text-success me-2 fs-4"></i>
-                <span class="fs-5 fw-bold">Hidroganik Alfa</span>
-            </a>
+        <div class="sidebar d-flex flex-column flex-shrink-0 text-white">
+            <div class="d-flex align-items-center p-3 bg-dark justify-content-between">
+                <a href="/" class="d-flex align-items-center text-white text-decoration-none">
+                    <i class="fas fa-leaf text-success me-2 fs-4"></i>
+                    <span class="fs-5 fw-bold">Hidroganik Alfa</span>
+                </a>
+                <button class="btn btn-link text-white d-md-none p-0" id="sidebarClose">
+                    <i class="fas fa-times fs-4"></i>
+                </button>
+            </div>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
                     <a href="/admin" class="nav-link <?= uri_string() == 'admin' ? 'active' : '' ?>">
@@ -144,6 +167,10 @@
     <script>
         document.getElementById("sidebarToggle").addEventListener("click", function(){
             document.getElementById("wrapper").classList.toggle("toggled");
+        });
+
+        document.getElementById("sidebarClose").addEventListener("click", function(){
+            document.getElementById("wrapper").classList.remove("toggled");
         });
 
         // Cropper.js logic

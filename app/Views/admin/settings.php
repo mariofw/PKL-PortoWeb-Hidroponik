@@ -73,6 +73,10 @@
                         <input type="text" name="contact_ig_handle" class="form-control" value="<?= esc($settings['contact_ig_handle'] ?? '') ?>" placeholder="@hidroganikalfa">
                     </div>
                     <div class="mb-3">
+                        <label>Nama Channel YouTube</label>
+                        <input type="text" name="contact_yt_handle" class="form-control" value="<?= esc($settings['contact_yt_handle'] ?? '') ?>" placeholder="Hidroganik Alfa">
+                    </div>
+                    <div class="mb-3">
                         <label>Jam Buka - Tutup</label>
                         <input type="text" name="contact_hours" class="form-control" value="<?= esc($settings['contact_hours'] ?? '') ?>" placeholder="Senin - Jumat: 08.00 - 17.00">
                     </div>
