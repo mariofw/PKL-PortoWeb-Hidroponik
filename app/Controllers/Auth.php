@@ -17,18 +17,20 @@ class Auth extends BaseController
 
     public function login()
     {
-        $username = $this->request->getPost('username');
-        $password = $this->request->getPost('password');
+        $username = (string)$this->request->getPost('username');
+        $password = (string)$this->request->getPost('password');
 
         $userModel = new UserModel();
+        // Fetch user from database
         $user = $userModel->where('username', $username)->first();
 
-        if ($user) {
+        // Strict case-sensitive and exact match check
+        if ($user && $user['username'] === $username) {
             if (password_verify($password, $user['password_hash'])) {
                 session()->set([
                     'id' => $user['id'],
                     'username' => $user['username'],
-                    'user_avatar' => $user['avatar'], // Add avatar to session
+                    'user_avatar' => $user['avatar'] ?? null, // Safely handle potential missing avatar
                     'is_logged_in' => true
                 ]);
                 return redirect()->to('/admin');

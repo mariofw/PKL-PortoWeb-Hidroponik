@@ -23,22 +23,36 @@ class Sliders extends BaseController
     {
         $model = new SliderModel();
         $data = $this->request->getPost();
+
+        // Validation rules
+        $rules = [
+            'image' => 'permit_empty|is_image[image]|mime_in[image,image/jpg,image/jpeg,image/png,image/webp]|max_size[image,15360]',
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
         
         $croppedImage = $this->request->getPost('cropped_image');
+        $imagePath = null;
+
         if (!empty($croppedImage)) {
             $imagePath = $this->_saveBase64Image($croppedImage);
-            if ($imagePath) {
-                $data['image_path'] = $imagePath;
-            }
         } else {
             $file = $this->request->getFile('image');
             if ($file && $file->isValid() && !$file->hasMoved()) {
                 $newName = $file->getRandomName();
                 $file->move(FCPATH . 'uploads', $newName);
-                $data['image_path'] = 'uploads/' . $newName;
+                $imagePath = 'uploads/' . $newName;
             }
         }
 
+        // Mandatory check for NEW slider image
+        if (empty($imagePath)) {
+            return redirect()->back()->withInput()->with('error', 'Silakan unggah gambar untuk slider baru.');
+        }
+
+        $data['image_path'] = $imagePath;
         unset($data['cropped_image']);
         $model->insert($data);
         return redirect()->to('/admin/sliders')->with('message', 'Slider added');
@@ -48,6 +62,11 @@ class Sliders extends BaseController
     {
         $model = new SliderModel();
         $data['slider'] = $model->find($id);
+        
+        if (!$data['slider']) {
+            return redirect()->to('/admin/sliders')->with('error', 'Slider tidak ditemukan.');
+        }
+
         $data['action'] = 'edit';
         return view('admin/sliders/form', $data);
     }
@@ -55,14 +74,30 @@ class Sliders extends BaseController
     public function update($id = null)
     {
         $model = new SliderModel();
+        $slider = $model->find($id);
+
+        if (!$slider) {
+            return redirect()->to('/admin/sliders')->with('error', 'Slider tidak ditemukan.');
+        }
+
         $data = $this->request->getPost();
+
+        // Validation rules
+        $rules = [
+            'image' => 'permit_empty|is_image[image]|mime_in[image,image/jpg,image/jpeg,image/png,image/webp]|max_size[image,15360]',
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
         $newImageUploaded = false;
+        $imagePath = null;
 
         $croppedImage = $this->request->getPost('cropped_image');
         if (!empty($croppedImage)) {
             $imagePath = $this->_saveBase64Image($croppedImage);
             if ($imagePath) {
-                $data['image_path'] = $imagePath;
                 $newImageUploaded = true;
             }
         } else {
@@ -70,16 +105,16 @@ class Sliders extends BaseController
             if ($file && $file->isValid() && !$file->hasMoved()) {
                 $newName = $file->getRandomName();
                 $file->move(FCPATH . 'uploads', $newName);
-                $data['image_path'] = 'uploads/' . $newName;
+                $imagePath = 'uploads/' . $newName;
                 $newImageUploaded = true;
             }
         }
 
         if ($newImageUploaded) {
-            $existingSlider = $model->find($id);
-            if ($existingSlider && !empty($existingSlider['image_path']) && file_exists(FCPATH . $existingSlider['image_path'])) {
-                @unlink(FCPATH . $existingSlider['image_path']);
+            if (!empty($slider['image_path']) && file_exists(FCPATH . $slider['image_path'])) {
+                @unlink(FCPATH . $slider['image_path']);
             }
+            $data['image_path'] = $imagePath;
         }
 
         unset($data['cropped_image']);

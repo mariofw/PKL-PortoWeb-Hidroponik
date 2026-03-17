@@ -1,7 +1,26 @@
 <?= $this->extend('admin/layout') ?>
 
 <?= $this->section('content') ?>
-<h3><?= ucfirst($action) ?> Slider</h3>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3><?= $action === 'edit' ? 'Edit' : 'Tambah' ?> Slider</h3>
+    <a href="/admin/sliders" class="btn btn-secondary btn-sm">Kembali</a>
+</div>
+
+<?php if(session()->getFlashdata('error')): ?>
+    <div class="alert alert-danger">
+        <?= session()->getFlashdata('error') ?>
+    </div>
+<?php endif; ?>
+
+<?php if(session()->getFlashdata('errors')): ?>
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            <?php foreach(session()->getFlashdata('errors') as $error): ?>
+                <li><?= $error ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>
 
 <form action="<?= $action === 'edit' ? '/admin/sliders/update/'.$slider['id'] : '/admin/sliders/create' ?>" method="post" enctype="multipart/form-data">
     <?= csrf_field() ?>

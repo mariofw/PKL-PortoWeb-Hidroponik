@@ -55,7 +55,7 @@ class Profile extends BaseController
 
         $data = [
             'id' => $userId,
-            'username' => $this->request->getPost('username'),
+            'username' => trim((string)$this->request->getPost('username')),
         ];
 
         if ($this->request->getPost('password')) {
