@@ -3,16 +3,22 @@
 <?= $this->section('content') ?>
 <h3><?= ucfirst($action) ?> Service</h3>
 
+<?php if(session()->getFlashdata('error')): ?>
+    <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
+<?php endif; ?>
+
 <form action="<?= $action === 'edit' ? '/admin/services/update/'.$service['id'] : '/admin/services' ?>" method="post" enctype="multipart/form-data">
     <?= csrf_field() ?>
 
     <div class="mb-3">
         <label>Title</label>
         <input type="text" name="title" class="form-control" value="<?= $service['title'] ?? '' ?>" required>
+        <small class="text-muted">Maksimal 15 kata.</small>
     </div>
     <div class="mb-3">
         <label>Description</label>
-        <textarea name="description" class="form-control"><?= $service['description'] ?? '' ?></textarea>
+        <textarea name="description" class="form-control" required><?= $service['description'] ?? '' ?></textarea>
+        <small class="text-muted">Maksimal 100 kata.</small>
     </div>
     <div class="mb-3">
         <label>Icon/Image</label>

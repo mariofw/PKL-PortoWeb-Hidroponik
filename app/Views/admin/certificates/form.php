@@ -29,7 +29,10 @@
 
                 <div class="mb-3">
                     <label for="description" class="form-label">Deskripsi Singkat</label>
-                    <textarea class="form-control" id="description" name="description" rows="3"><?= isset($certificate) ? $certificate['description'] : old('description') ?></textarea>
+                    <textarea class="form-control" id="description" name="description" rows="3" maxlength="500"><?= isset($certificate) ? $certificate['description'] : old('description') ?></textarea>
+                    <div class="text-end">
+                        <small id="char-count" class="text-muted">0 / 500 karakter</small>
+                    </div>
                 </div>
 
                 <div class="mb-3">
@@ -50,4 +53,18 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const textarea = document.getElementById('description');
+        const count = document.getElementById('char-count');
+
+        function updateCount() {
+            count.textContent = `${textarea.value.length} / 500 karakter`;
+        }
+
+        textarea.addEventListener('input', updateCount);
+        updateCount(); // Initial count
+    });
+</script>
 <?= $this->endSection() ?>

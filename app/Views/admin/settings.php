@@ -7,6 +7,10 @@
     <div class="alert alert-success"><?= session()->getFlashdata('message') ?></div>
 <?php endif; ?>
 
+<?php if(session()->getFlashdata('error')): ?>
+    <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
+<?php endif; ?>
+
 <form action="/admin/settings" method="post" enctype="multipart/form-data">
     <?= csrf_field() ?>
     
@@ -17,14 +21,14 @@
                 <div class="card-body">
                     <div class="mb-3">
                         <label>Site Title</label>
-                        <input type="text" name="site_title" class="form-control" value="<?= esc($settings['site_title'] ?? '') ?>">
+                        <input type="text" name="site_title" class="form-control" value="<?= esc($settings['site_title'] ?? '') ?>" required>
                     </div>
                     <div class="mb-3">
                         <label>Logo</label>
                         <div class="mb-2">
                             <img src="<?= isset($settings['site_logo']) && !empty($settings['site_logo']) ? '/'.esc($settings['site_logo']) : '' ?>" id="site_logo_preview" style="max-height: 50px; display: <?= isset($settings['site_logo']) && !empty($settings['site_logo']) ? 'block' : 'none' ?>;">
                         </div>
-                        <input type="file" name="site_logo" class="form-control"
+                        <input type="file" name="site_logo" class="form-control" accept="image/jpeg,image/png"
                                onchange="document.getElementById('site_logo_preview').src = window.URL.createObjectURL(this.files[0]); document.getElementById('site_logo_preview').style.display = 'block';">
                         <small class="text-muted">Rekomendasi logo transparan (PNG).</small>
                     </div>
@@ -44,7 +48,7 @@
                     </div>
                     <div class="mb-3">
                         <label><i class="fab fa-youtube"></i> YouTube URL</label>
-                        <input type="text" name="social_yt" class="form-control" value="<?= esc($settings['social_yt'] ?? '') ?>" placeholder="https://youtube.com/...">
+                        <input type="url" name="social_yt" class="form-control" value="<?= esc($settings['social_yt'] ?? '') ?>" placeholder="https://youtube.com/...">
                     </div>
                     <div class="mb-3">
                         <label><i class="fab fa-whatsapp"></i> WhatsApp URL (Link Chat)</label>
@@ -66,7 +70,7 @@
                     </div>
                     <div class="mb-3">
                         <label>Email</label>
-                        <input type="text" name="contact_email" class="form-control" value="<?= esc($settings['contact_email'] ?? '') ?>" placeholder="info@hidroganik.com">
+                        <input type="email" name="contact_email" class="form-control" value="<?= esc($settings['contact_email'] ?? '') ?>" placeholder="info@hidroganik.com">
                     </div>
                     <div class="mb-3">
                         <label>Nama Akun Instagram</label>
@@ -90,11 +94,11 @@
                 <div class="card-body">
                     <div class="mb-3">
                         <label>Visi</label>
-                        <textarea name="visi" class="form-control" rows="3"><?= esc($settings['visi'] ?? '') ?></textarea>
+                        <textarea name="visi" class="form-control" rows="3" required><?= esc($settings['visi'] ?? '') ?></textarea>
                     </div>
                     <div class="mb-3">
                         <label>Misi</label>
-                        <textarea name="misi" class="form-control" rows="5"><?= esc($settings['misi'] ?? '') ?></textarea>
+                        <textarea name="misi" class="form-control" rows="5" required><?= esc($settings['misi'] ?? '') ?></textarea>
                     </div>
                 </div>
             </div>
@@ -111,7 +115,7 @@
                         <div class="mb-2">
                             <img src="<?= isset($settings['about_us_image']) && !empty($settings['about_us_image']) ? '/'.esc($settings['about_us_image']) : '' ?>" id="about_us_image_preview" style="max-height: 100px; display: <?= isset($settings['about_us_image']) && !empty($settings['about_us_image']) ? 'block' : 'none' ?>;">
                         </div>
-                        <input type="file" name="about_us_image" class="form-control image-cropper-input"
+                        <input type="file" name="about_us_image" class="form-control image-cropper-input" accept="image/jpeg,image/png"
                                data-hidden-input-id="cropped_about_us_image"
                                data-preview-id="about_us_image_preview"
                                data-aspect-ratio="1/1">
@@ -133,7 +137,7 @@
                         <div class="mb-2">
                             <img src="<?= isset($settings['owner_image']) && !empty($settings['owner_image']) ? '/'.esc($settings['owner_image']) : '' ?>" id="owner_image_preview" style="max-height: 100px; display: <?= isset($settings['owner_image']) && !empty($settings['owner_image']) ? 'block' : 'none' ?>;">
                         </div>
-                        <input type="file" name="owner_image" class="form-control image-cropper-input"
+                        <input type="file" name="owner_image" class="form-control image-cropper-input" accept="image/jpeg,image/png"
                                data-hidden-input-id="cropped_owner_image"
                                data-preview-id="owner_image_preview"
                                data-aspect-ratio="1/1">

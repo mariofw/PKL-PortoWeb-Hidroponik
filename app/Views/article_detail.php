@@ -100,7 +100,7 @@
                     <?php endif; ?>
                     
                     <div class="content-body">
-                        <?= nl2br($article['content']) ?>
+                        <?= $article['content'] ?>
                     </div>
 
                     <div class="mt-5 pt-4 border-top">

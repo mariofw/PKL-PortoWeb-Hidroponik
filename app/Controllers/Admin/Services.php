@@ -23,25 +23,46 @@ class Services extends BaseController
     {
         $model = new ServiceModel();
         $data = $this->request->getPost();
+
+        // Validation
+        $title = trim($data['title'] ?? '');
+        $description = trim($data['description'] ?? '');
+
+        if (empty($title)) {
+            return redirect()->back()->withInput()->with('error', 'Judul wajib diisi');
+        }
+        if (str_word_count($title) > 15) {
+            return redirect()->back()->withInput()->with('error', 'Judul tidak boleh lebih dari 15 kata');
+        }
+
+        if (empty($description)) {
+            return redirect()->back()->withInput()->with('error', 'Deskripsi wajib diisi');
+        }
+        if (str_word_count($description) > 100) {
+            return redirect()->back()->withInput()->with('error', 'Deskripsi tidak boleh lebih dari 100 kata');
+        }
         
+        $imagePath = null;
         $croppedImage = $this->request->getPost('cropped_image');
         if (!empty($croppedImage)) {
             $imagePath = $this->_saveBase64Image($croppedImage);
-            if ($imagePath) {
-                $data['icon_image'] = $imagePath;
-            }
         } else {
             $file = $this->request->getFile('image');
             if ($file && $file->isValid() && !$file->hasMoved()) {
                 $newName = $file->getRandomName();
                 $file->move(FCPATH . 'uploads', $newName);
-                $data['icon_image'] = 'uploads/' . $newName;
+                $imagePath = 'uploads/' . $newName;
             }
         }
 
+        if (!$imagePath) {
+            return redirect()->back()->withInput()->with('error', 'Gambar wajib diunggah');
+        }
+
+        $data['icon_image'] = $imagePath;
         unset($data['cropped_image']);
         $model->insert($data);
-        return redirect()->to('/admin/services')->with('message', 'Service added');
+        return redirect()->to('/admin/services')->with('message', 'Layanan berhasil ditambahkan');
     }
 
     public function edit($id = null)
@@ -56,6 +77,25 @@ class Services extends BaseController
     {
         $model = new ServiceModel();
         $data = $this->request->getPost();
+
+        // Validation
+        $title = trim($data['title'] ?? '');
+        $description = trim($data['description'] ?? '');
+
+        if (empty($title)) {
+            return redirect()->back()->withInput()->with('error', 'Title is required');
+        }
+        if (str_word_count($title) > 15) {
+            return redirect()->back()->withInput()->with('error', 'Title cannot exceed 15 words');
+        }
+
+        if (empty($description)) {
+            return redirect()->back()->withInput()->with('error', 'Description is required');
+        }
+        if (str_word_count($description) > 100) {
+            return redirect()->back()->withInput()->with('error', 'Description cannot exceed 100 words');
+        }
+
         $newImageUploaded = false;
 
         $croppedImage = $this->request->getPost('cropped_image');

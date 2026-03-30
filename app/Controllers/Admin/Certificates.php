@@ -36,6 +36,7 @@ class Certificates extends BaseController
     {
         $rules = [
             'title' => 'required|min_length[3]',
+            'description' => 'permit_empty|max_length[500]',
             'image' => 'permit_empty|is_image[image]|mime_in[image,image/jpg,image/jpeg,image/png,image/webp]|max_size[image,15360]',
         ];
 
@@ -96,6 +97,7 @@ class Certificates extends BaseController
 
         $rules = [
             'title' => 'required|min_length[3]',
+            'description' => 'permit_empty|max_length[500]',
             'image' => 'permit_empty|is_image[image]|mime_in[image,image/jpg,image/jpeg,image/png,image/webp]|max_size[image,15360]',
         ];
 

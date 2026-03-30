@@ -28,7 +28,7 @@
 
             <div class="mb-3" id="content_group">
                 <label>Content</label>
-                <textarea name="content" class="form-control" rows="10"><?= $article['content'] ?? '' ?></textarea>
+                <textarea name="content" id="editor" class="form-control" rows="10"><?= $article['content'] ?? '' ?></textarea>
             </div>
         </div>
         
@@ -55,7 +55,25 @@
     <button type="submit" class="btn btn-primary">Save</button>
 </form>
 
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 <script>
+    let editorInstance;
+
+    ClassicEditor
+        .create(document.querySelector('#editor'), {
+            toolbar: [
+                'heading', '|',
+                'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|',
+                'undo', 'redo'
+            ]
+        })
+        .then(editor => {
+            editorInstance = editor;
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
     document.addEventListener('DOMContentLoaded', function() {
         const typeSelect = document.getElementById('link_type');
         const urlGroup = document.getElementById('external_url_group');
@@ -66,6 +84,7 @@
                 urlGroup.style.display = 'block';
                 contentGroup.style.display = 'none';
             } else {
+                urlGroup.style.display = 'block'; // Ensure it's rendered first
                 urlGroup.style.display = 'none';
                 contentGroup.style.display = 'block';
             }
