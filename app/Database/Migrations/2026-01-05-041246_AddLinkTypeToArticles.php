@@ -26,6 +26,8 @@ class AddLinkTypeToArticles extends Migration
 
     public function down()
     {
-        $this->forge->dropColumn('articles', ['link_type', 'external_url']);
+        if ($this->db->DBDriver !== 'SQLite3') {
+            $this->forge->dropColumn('articles', ['link_type', 'external_url']);
+        }
     }
 }

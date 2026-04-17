@@ -28,7 +28,7 @@
                 <img src="/<?= $article['image_path'] ?>" height="50">
                 <?php endif; ?>
             </td>
-            <td><?= substr($article['title'], 0, 30) . (strlen($article['title']) > 30 ? '...' : '') ?></td>
+            <td><?= esc(substr($article['title'], 0, 29)) . (strlen($article['title']) > 29 ? '...' : '') ?></td>
             <td><?= $article['author'] ?></td>
             <td><?= $article['created_at'] ?></td>
             <td style="min-width: 150px;">

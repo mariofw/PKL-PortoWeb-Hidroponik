@@ -21,6 +21,23 @@ class Articles extends BaseController
 
     public function store()
     {
+        $rules = [
+            'title'     => 'required|min_length[3]|max_length[255]',
+            'link_type' => 'required|in_list[internal,external]',
+            'author'    => 'required',
+        ];
+
+        // Jika internal, content wajib diisi
+        if ($this->request->getPost('link_type') === 'internal') {
+            $rules['content'] = 'required';
+        } else {
+            $rules['external_url'] = 'required|valid_url';
+        }
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
         $model = new ArticleModel();
         $data = $this->request->getPost();
         
@@ -61,6 +78,22 @@ class Articles extends BaseController
 
     public function update($id = null)
     {
+        $rules = [
+            'title'     => 'required|min_length[3]|max_length[255]',
+            'link_type' => 'required|in_list[internal,external]',
+            'author'    => 'required',
+        ];
+
+        if ($this->request->getPost('link_type') === 'internal') {
+            $rules['content'] = 'required';
+        } else {
+            $rules['external_url'] = 'required|valid_url';
+        }
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
         $model = new ArticleModel();
         $data = $this->request->getPost();
         

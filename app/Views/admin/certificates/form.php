@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="image" class="form-label">Gambar Sertifikat</label>
+                    <label for="image" class="form-label">Gambar Penghargaan</label>
                     <div class="mb-2">
                         <img src="<?= isset($certificate) && $certificate['image_path'] ? '/'.esc($certificate['image_path']) : '' ?>" id="image_preview" style="max-height: 150px; display: <?= isset($certificate) && $certificate['image_path'] ? 'block' : 'none' ?>;" class="img-thumbnail">
                     </div>

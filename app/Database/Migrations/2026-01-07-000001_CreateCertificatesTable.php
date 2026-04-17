@@ -10,9 +10,7 @@ class CreateCertificatesTable extends Migration
     {
         $this->forge->addField([
             'id' => [
-                'type'           => 'INT',
-                'constraint'     => 11,
-                'unsigned'       => true,
+                'type'           => 'INTEGER',
                 'auto_increment' => true,
             ],
             'title' => [
@@ -22,6 +20,7 @@ class CreateCertificatesTable extends Migration
             'image_path' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
+                'null'       => true,
             ],
             'description' => [
                 'type' => 'TEXT',

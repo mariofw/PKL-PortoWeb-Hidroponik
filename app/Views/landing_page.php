@@ -293,7 +293,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#about">Tentang Kami</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#competency">Ujikom</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#competency">Penghargaan</a></li>
                     <li class="nav-item"><a class="nav-link" href="#partners">Partner</a></li>
                     <li class="nav-item"><a class="nav-link" href="#services">Layanan</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contribution">Kontribusi</a></li>
@@ -394,8 +394,8 @@
     <section id="competency" class="bg-hydro-light">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-title">Uji Kompetensi</h2>
-                <p class="text-muted mb-5">Sertifikasi dan pencapaian yang telah kami raih.</p>
+                <h2 class="section-title">Penghargaan</h2>
+                <p class="text-muted mb-5">Pencapaian yang telah kami raih.</p>
             </div>
             
             <div class="row justify-content-center">

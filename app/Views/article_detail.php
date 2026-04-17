@@ -83,7 +83,7 @@
 
     <header class="article-header text-center">
         <div class="container">
-            <h1 class="display-4 fw-bold text-hydro"><?= $article['title'] ?></h1>
+            <h1 class="display-4 fw-bold text-hydro"><?= esc($article['title']) ?></h1>
             <p class="text-muted mt-3">
                 <i class="fas fa-user me-2"></i> <?= $article['author'] ?> &nbsp;&nbsp;|&nbsp;&nbsp; 
                 <i class="fas fa-calendar me-2"></i> <?= date('d F Y', strtotime($article['created_at'])) ?>
@@ -100,7 +100,7 @@
                     <?php endif; ?>
                     
                     <div class="content-body">
-                        <?= $article['content'] ?>
+                        <?= esc($article['content']) ?>
                     </div>
 
                     <div class="mt-5 pt-4 border-top">
@@ -284,3 +284,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+ml>
+ml>

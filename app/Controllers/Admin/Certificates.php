@@ -17,7 +17,7 @@ class Certificates extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Manajemen Sertifikat Kompetensi',
+            'title' => 'Manajemen Penghargaan',
             'certificates' => $this->certificateModel->findAll()
         ];
         return view('admin/certificates/index', $data);
@@ -26,7 +26,7 @@ class Certificates extends BaseController
     public function new()
     {
         $data = [
-            'title' => 'Tambah Sertifikat',
+            'title' => 'Tambah Penghargaan',
             'validation' => \Config\Services::validation()
         ];
         return view('admin/certificates/form', $data);
@@ -70,7 +70,7 @@ class Certificates extends BaseController
 
         $this->certificateModel->save($data);
 
-        return redirect()->to('/admin/certificates')->with('success', 'Sertifikat berhasil ditambahkan');
+        return redirect()->to('/admin/certificates')->with('success', 'Penghargaan berhasil ditambahkan');
     }
 
     public function edit($id)
@@ -81,7 +81,7 @@ class Certificates extends BaseController
         }
 
         $data = [
-            'title' => 'Edit Sertifikat',
+            'title' => 'Edit Penghargaan',
             'certificate' => $certificate,
             'validation' => \Config\Services::validation()
         ];
@@ -138,7 +138,7 @@ class Certificates extends BaseController
 
         $this->certificateModel->save($data);
 
-        return redirect()->to('/admin/certificates')->with('success', 'Sertifikat berhasil diperbarui');
+        return redirect()->to('/admin/certificates')->with('success', 'Penghargaan berhasil diperbarui');
     }
 
     private function _saveBase64Image($base64String) {
@@ -181,6 +181,6 @@ class Certificates extends BaseController
             }
             $this->certificateModel->delete($id);
         }
-        return redirect()->to('/admin/certificates')->with('success', 'Sertifikat berhasil dihapus');
+        return redirect()->to('/admin/certificates')->with('success', 'Penghargaan berhasil dihapus');
     }
 }

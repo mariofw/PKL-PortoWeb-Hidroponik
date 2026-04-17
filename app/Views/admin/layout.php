@@ -79,7 +79,7 @@
                 </li>
                 <li>
                     <a href="/admin/certificates" class="nav-link <?= strpos(uri_string(), 'admin/certificates') !== false ? 'active' : '' ?>">
-                        <i class="fas fa-certificate me-2"></i> Certificates
+                        <i class="fas fa-certificate me-2"></i> Penghargaan
                     </a>
                 </li>
                 <li>

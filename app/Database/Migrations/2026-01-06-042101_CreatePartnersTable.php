@@ -10,9 +10,7 @@ class CreatePartnersTable extends Migration
     {
         $this->forge->addField([
             'id' => [
-                'type'           => 'INT',
-                'constraint'     => 5,
-                'unsigned'       => true,
+                'type'           => 'INTEGER',
                 'auto_increment' => true,
             ],
             'name' => [
@@ -22,6 +20,7 @@ class CreatePartnersTable extends Migration
             'logo_path' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
+                'null'       => true,
             ],
             'created_at' => [
                 'type' => 'DATETIME',

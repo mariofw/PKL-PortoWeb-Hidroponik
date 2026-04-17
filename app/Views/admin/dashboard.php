@@ -63,6 +63,11 @@
                     </a>
                 </div>
                 <div class="col-md-3 mb-3">
+                    <a href="/admin/certificates" class="btn btn-outline-success w-100 py-3">
+                        <i class="fas fa-certificate fa-2x mb-2"></i><br>Penghargaan
+                    </a>
+                </div>
+                <div class="col-md-3 mb-3">
                     <a href="/admin/settings" class="btn btn-outline-success w-100 py-3">
                         <i class="fas fa-cogs fa-2x mb-2"></i><br>Settings
                     </a>

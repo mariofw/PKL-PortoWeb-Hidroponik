@@ -11,12 +11,12 @@ class CreateSlidersTable extends Migration
         $this->forge->addField([
             'id' => [
                 'type'           => 'INTEGER',
-                'constraint'     => 11,
                 'auto_increment' => true,
             ],
             'image_path' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
+                'null'       => true,
             ],
             'title' => [
                 'type'       => 'VARCHAR',

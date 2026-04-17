@@ -20,6 +20,8 @@ class AddAvatarToUsers extends Migration
 
     public function down()
     {
-        $this->forge->dropColumn('users', 'avatar');
+        if ($this->db->DBDriver !== 'SQLite3') {
+            $this->forge->dropColumn('users', 'avatar');
+        }
     }
 }
