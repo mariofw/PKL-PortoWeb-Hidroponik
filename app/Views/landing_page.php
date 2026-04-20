@@ -667,34 +667,58 @@
                         <h4 class="text-center text-dark fw-bold mb-4">Green Economy</h4>
                         
                         <div class="row g-3">
+                            <!-- Item 1: Produk Berkelanjutan -->
                             <div class="col-4">
-                                <div class="card border-0 shadow-sm h-100 d-flex align-items-center justify-content-center p-2 rounded-3 hover-up">
-                                    <img src="/uploads/5.%20Efiensi%20Energi.png" class="img-fluid" alt="Efisiensi Energi">
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="card border-0 shadow-sm h-100 d-flex align-items-center justify-content-center p-2 rounded-3 hover-up">
+                                <div class="card border-0 shadow-sm h-100 d-flex align-items-center justify-content-center p-2 rounded-3 hover-up position-relative overflow-hidden">
                                     <img src="/uploads/1.%20PRODUK%20BERKELANJUTAN.png" class="img-fluid" alt="Produk Berkelanjutan">
+                                    <div class="ge-overlay">
+                                        <p class="ge-text">Menggunakan air dan nutrisi secara efisien.</p>
+                                    </div>
                                 </div>
                             </div>
+                            <!-- Item 2: Ramah Lingkungan -->
                             <div class="col-4">
-                                <div class="card border-0 shadow-sm h-100 d-flex align-items-center justify-content-center p-2 rounded-3 hover-up">
-                                    <img src="/uploads/3.%20Pemberdayaan%20Masyarakat.png" class="img-fluid" alt="Pemberdayaan Masyarakat">
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="card border-0 shadow-sm h-100 d-flex align-items-center justify-content-center p-2 rounded-3 hover-up">
-                                    <img src="/uploads/4.%20Penghijauaan%20Kota.png" class="img-fluid" alt="Penghijauan Kota">
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="card border-0 shadow-sm h-100 d-flex align-items-center justify-content-center p-2 rounded-3 hover-up">
+                                <div class="card border-0 shadow-sm h-100 d-flex align-items-center justify-content-center p-2 rounded-3 hover-up position-relative overflow-hidden">
                                     <img src="/uploads/2.%20PRODUK%20RAMAH%20LINGKUNGAN.png" class="img-fluid" alt="Ramah Lingkungan">
+                                    <div class="ge-overlay">
+                                        <p class="ge-text">Sayuran bebas pestisida kimia dan menggunakan pupuk organik cair (POC)</p>
+                                    </div>
                                 </div>
                             </div>
+                            <!-- Item 3: Pemberdayaan Masyarakat -->
+                            <div class="col-4">
+                                <div class="card border-0 shadow-sm h-100 d-flex align-items-center justify-content-center p-2 rounded-3 hover-up position-relative overflow-hidden">
+                                    <img src="/uploads/3.%20Pemberdayaan%20Masyarakat.png" class="img-fluid" alt="Pemberdayaan Masyarakat">
+                                    <div class="ge-overlay">
+                                        <p class="ge-text">Memberikan pelatihan dan membuka peluang usaha di bidang hidroponik organik</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Item 4: Penghijauan Kota -->
+                            <div class="col-4">
+                                <div class="card border-0 shadow-sm h-100 d-flex align-items-center justify-content-center p-2 rounded-3 hover-up position-relative overflow-hidden">
+                                    <img src="/uploads/4.%20Penghijauaan%20Kota.png" class="img-fluid" alt="Penghijauan Kota">
+                                    <div class="ge-overlay">
+                                        <p class="ge-text">Menciptakan ruang hijau produktif di wilayah perkotaan</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Item 5: Efisiensi Energi -->
+                            <div class="col-4">
+                                <div class="card border-0 shadow-sm h-100 d-flex align-items-center justify-content-center p-2 rounded-3 hover-up position-relative overflow-hidden">
+                                    <img src="/uploads/5.%20Efiensi%20Energi.png" class="img-fluid" alt="Efisiensi Energi">
+                                    <div class="ge-overlay">
+                                        <p class="ge-text">Menggunakan pompa hemat listrik dan desain instalasi yang optimal</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Item 6: Inovasi Berbasis Limbah -->
                              <div class="col-4">
-                                <div class="card border-0 shadow-sm h-100 d-flex align-items-center justify-content-center p-2 rounded-3 hover-up">
+                                <div class="card border-0 shadow-sm h-100 d-flex align-items-center justify-content-center p-2 rounded-3 hover-up position-relative overflow-hidden">
                                     <img src="/uploads/6.%20inovasi%20berbasis%20limba.png" class="img-fluid" alt="Inovasi Limbah">
+                                    <div class="ge-overlay">
+                                        <p class="ge-text">Potponik memanfaatkan bahan limbah rumah tangga, mendukung prinsip ekonomi sirkular</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -705,6 +729,32 @@
         <style>
             .hover-up { transition: transform 0.3s ease, box-shadow 0.3s ease; }
             .hover-up:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; }
+            
+            .ge-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(46, 125, 50, 0.9); /* Green shade */
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                padding: 10px;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            .hover-up:hover .ge-overlay {
+                opacity: 1;
+            }
+            .ge-text {
+                font-size: 0.75rem;
+                font-weight: 600;
+                margin: 0;
+                line-height: 1.2;
+            }
         </style>
     </section>
 
